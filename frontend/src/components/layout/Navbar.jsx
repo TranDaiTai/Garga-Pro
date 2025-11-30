@@ -1,16 +1,17 @@
 
 import { useState } from "react"
+import {Link} from 'react-router-dom';
 import { Menu, X, Wrench, Phone } from "lucide-react"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const navLinks = [
-    { href: "#services", label: "Dịch Vụ" },
-    { href: "#about", label: "Về Chúng Tôi" },
-    { href: "#promotions", label: "Khuyến Mãi" },
-    { href: "#reviews", label: "Đánh Giá" },
-    { href: "#contact", label: "Liên Hệ" },
+    { href: "/services", label: "Dịch Vụ" },
+    { href: "/about", label: "Về Chúng Tôi" },
+    { href: "/promotions", label: "Khuyến Mãi" },
+    { href: "/reviews", label: "Đánh Giá" },
+    { href: "/contact", label: "Liên Hệ" },
   ]
 
   return (
@@ -50,9 +51,15 @@ export default function Navbar() {
               <Phone className="w-4 h-4" />
               <span className="hidden lg:inline">1800 1234</span>
             </a>
-            <button className="px-6 py-2 bg-orange-600 text-white rounded-lg font-medium text-sm hover:bg-orange-700 transition-all duration-200 hover:shadow-lg hover:shadow-orange-600/30">
+            {/* <button className="px-6 py-2 bg-orange-600 text-white rounded-lg font-medium text-sm hover:bg-orange-700 transition-all duration-200 hover:shadow-lg hover:shadow-orange-600/30">
               Đặt Lịch
-            </button>
+            </button> */}
+              <Link
+              to="/booking"
+              className="px-6 py-2 bg-orange-600 text-white rounded-lg font-medium text-sm hover:bg-orange-700 transition-all duration-200 hover:shadow-lg hover:shadow-orange-600/30"
+            >
+              Đặt Lịch
+            </Link>
           </div>
 
           {/* Mobile menu button */}

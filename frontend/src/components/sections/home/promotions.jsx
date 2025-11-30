@@ -21,11 +21,13 @@ const promotions = [
 
 export default function PromotionsSection() {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <section 
+    // className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
+    >
       <div className="text-center mb-16">
-        <div className="inline-block mb-6 px-4 py-2 rounded-full bg-accent/10 border border-accent text-accent text-sm font-semibold">
+        {/* <div className="inline-block mb-6 px-4 py-2 rounded-full bg-accent/10 border border-accent text-accent text-sm font-semibold">
           Khuyến mãi
-        </div>
+        </div> */}
         <h2 className="text-4xl font-bold text-foreground mb-4">Ưu đãi và khuyến mãi đặc biệt</h2>
       </div>
 
