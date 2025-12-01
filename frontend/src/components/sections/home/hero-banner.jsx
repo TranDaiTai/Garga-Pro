@@ -71,7 +71,7 @@ export default function HeroBanner() {
 
   return (
     <section
-      className="relative w-full h-96 md:h-[500px] bg-foreground overflow-hidden group"
+      className="relative w-full h-[600px] md:h-[700px] overflow-hidden group"
       onMouseEnter={() => setIsAutoPlay(false)}
       onMouseLeave={() => setIsAutoPlay(true)}
     >
@@ -79,29 +79,41 @@ export default function HeroBanner() {
         {slides.map((s, index) => (
           <div
             key={s.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 transition-all duration-1000 ${
+              index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"
             }`}
           >
-            {/* Background image overlay */}
+            {/* Background image with gradient overlay */}
             <div
-              className="absolute inset-0 opacity-40"
+              className="absolute inset-0"
               style={{
                 backgroundImage: `url(${s.image})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
             />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
 
-            {/* Content overlay */}
-            <div className="relative h-full flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background mb-4 leading-tight max-w-3xl">
-                {s.title}
-              </h1>
-              <p className="text-base md:text-lg text-background/90 mb-8 max-w-2xl leading-relaxed">{s.description}</p>
-              <button className="px-8 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-all duration-200 hover:shadow-lg">
-                {s.cta}
-              </button>
+            {/* Content overlay - Left aligned */}
+            <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="h-full flex flex-col justify-center max-w-2xl">
+                <div className="mb-4 inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm px-4 py-2 rounded-full w-fit border border-accent/30">
+                  <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+                  <span className="text-white text-sm font-semibold">Dịch vụ chuyên nghiệp</span>
+                </div>
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                  {s.title}
+                </h1>
+                <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed">{s.description}</p>
+                <div className="flex flex-wrap gap-4">
+                  <button className="px-8 py-4 bg-accent text-white rounded-lg font-semibold hover:bg-accent/90 transition-all duration-200 hover:shadow-lg hover:shadow-accent/30 hover:scale-105">
+                    {s.cta}
+                  </button>
+                  <button className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-200 border border-white/30">
+                    Tìm hiểu thêm
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         ))}
