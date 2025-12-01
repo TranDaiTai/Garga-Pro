@@ -103,13 +103,15 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
   return (
     <>
       {/* Background gradient - FIXED: Sử dụng background thay vì gradient nếu cần */}
+
       {currentTheme.backgroundColor && (
         <div
-          className={`fixed inset-0 pointer-events-none ${currentTheme.backgroundColor} z-0`}
+          className={`fixed inset-0 pointer-events-none bg-gradient-to-b ${currentTheme.backgroundColor} z-0`}
           style={{ 
-            opacity: 0.3
+            // opacity: 0.3
           }}
         />
+        
       )}
 
       {/* Corner decorations */}
@@ -117,7 +119,7 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
       {cornerEmojis.length >= 4 && (
         <>
           {/* Top-left corner */}
-          <div className="fixed top-0 left-0 pointer-events-none z-99 opacity-80">
+          {/* <div className="fixed top-0 left-0 pointer-events-none z-99 opacity-80">
             <div className="text-4xl md:text-6xl flex flex-col gap-3 p-4">
               {cornerEmojis.slice(0, 2).map((emoji, i) => (
                 <div 
@@ -132,10 +134,10 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Top-right corner */}
-          <div className="fixed top-0 right-0 pointer-events-none z-99 opacity-80">
+          {/* <div className="fixed top-0 right-0 pointer-events-none z-99 opacity-80">
             <div className="text-4xl md:text-6xl flex flex-col gap-3 p-4">
               {cornerEmojis.slice(2, 4).map((emoji, i) => (
                 <div 
@@ -150,10 +152,10 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Bottom-left corner */}
-          <div className="fixed bottom-0 left-0 pointer-events-none z-20 opacity-80">
+          {/* <div className="fixed bottom-0 left-0 pointer-events-none z-20 opacity-80">
             <div className="text-4xl md:text-6xl flex flex-col-reverse gap-3 p-4">
               {cornerEmojis.slice(0, 2).map((emoji, i) => (
                 <div 
@@ -168,10 +170,10 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Bottom-right corner */}
-          <div className="fixed bottom-0 right-0 pointer-events-none z-20 opacity-80">
+          {/* <div className="fixed bottom-0 right-0 pointer-events-none z-20 opacity-80">
             <div className="text-4xl md:text-6xl flex flex-col-reverse gap-3 p-4">
               {cornerEmojis.slice(2, 4).map((emoji, i) => (
                 <div 
@@ -186,13 +188,13 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </>
       )}
 
       {/* Top edge decoration */}
-      {edgeEmojis.length > 0 && (
-        <div className="fixed top-2 left-1/2 -translate-x-1/2 pointer-events-none z-20 opacity-70">
+      {/* {edgeEmojis.length > 0 && (
+        <div className="fixed top-2 left-1/2 -translate-x-1/2 pointer-events-none z-0 opacity-70">
           <div className="text-2xl md:text-3xl flex gap-4 md:gap-6">
             {edgeEmojis.map((emoji, i) => (
               <div 
@@ -208,7 +210,7 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
             ))}
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Falling particles */}
       {!isReducedMotion && particles.length > 0 && (
@@ -230,7 +232,7 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
         </div>
       )}
 
-      <style jsx>{`
+      <style >{`
         @keyframes fall {
           0% {
             transform: translateY(0) rotate(0deg);
