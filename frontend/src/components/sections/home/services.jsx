@@ -35,9 +35,7 @@ export default function ServicesSection() {
   return (
     <section>
       <div className="text-center mb-16">
-        <div className="inline-block mb-4 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent text-sm font-semibold">
-          Dịch vụ của chúng tôi
-        </div>
+       
         <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Dịch vụ chuyên nghiệp</h2>
         <p className="text-foreground/70 max-w-2xl mx-auto text-lg">
           Chúng tôi cung cấp các dịch vụ bảo dưỡng và sửa chữa ô tô toàn diện

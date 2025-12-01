@@ -98,7 +98,6 @@ export function SeasonalDecoration() {
 const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
 
 
-    console.log("Rendering theme:", cornerEmojis)
 
   return (
     <>
@@ -214,7 +213,7 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
 
       {/* Falling particles */}
       {!isReducedMotion && particles.length > 0 && (
-        <div className="fixed inset-0 pointer-events-none overflow-hidden z-10">
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
           {particles.map((particle) => (
             <div
               key={particle.id}

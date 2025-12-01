@@ -26,9 +26,7 @@ export default function PromotionsSection() {
 
       <div className="relative">
         <div className="text-center mb-16">
-          <div className="inline-block mb-4 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent text-sm font-semibold">
-            Ưu đãi đặc biệt
-          </div>
+        
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Khuyến mãi hot trong tháng</h2>
           <p className="text-foreground/70 max-w-2xl mx-auto text-lg">
             Nhận ngay ưu đãi hấp dẫn khi sử dụng dịch vụ của chúng tôi
