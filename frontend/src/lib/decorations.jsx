@@ -4,6 +4,9 @@ export const decorationThemes = {
     name: "Auto Seasonal",
     enabled: false,
     emoji: "🌎",
+    cornerElements: [],
+    edgeElements: [],
+    particles: [],
   },
   christmas: {
     theme: "christmas",
@@ -12,8 +15,18 @@ export const decorationThemes = {
     emoji: "🎄",
     backgroundColor: "from-red-50 to-green-50",
     accentColor: "text-red-600",
-    cornerElements: "🎄🎅❄️🎁",
-    edgeElements: "⭐️🌟✨💫",
+    cornerElements: [
+      { emoji: "🎄", position: "top-left" },
+      { emoji: "🎅", position: "top-right" },
+      { emoji: "❄️", position: "bottom-left" },
+      { emoji: "🎁", position: "bottom-right" },
+    ],
+    edgeElements: [
+      { emoji: "⭐️", position: "top-left" },
+      { emoji: "🌟", position: "top-right" },
+      { emoji: "✨", position: "bottom-left" },
+      { emoji: "💫", position: "bottom-right" },
+    ],
     particles: [
       { emoji: "🎄", count: 6, speed: "slow", size: "large" },
       { emoji: "❄️", count: 12, speed: "medium", size: "medium" },
@@ -28,8 +41,18 @@ export const decorationThemes = {
     emoji: "🎃",
     backgroundColor: "from-orange-50 to-purple-50",
     accentColor: "text-orange-600",
-    cornerElements: "🎃👻🦇💀",
-    edgeElements: "🕸️🕷️⚰️🔮",
+    cornerElements: [
+      { emoji: "🎃", position: "top-left" },
+      { emoji: "👻", position: "top-right" },
+      { emoji: "🦇", position: "bottom-left" },
+      { emoji: "💀", position: "bottom-right" },
+    ],
+    edgeElements: [
+      { emoji: "🕸️", position: "top-left" },
+      { emoji: "🕷️", position: "top-right" },
+      { emoji: "⚰️", position: "bottom-left" },
+      { emoji: "🔮", position: "bottom-right" },
+    ],
     particles: [
       { emoji: "👻", count: 10, speed: "medium", size: "medium" },
       { emoji: "🎃", count: 8, speed: "medium", size: "large" },
@@ -44,8 +67,18 @@ export const decorationThemes = {
     emoji: "❤️",
     backgroundColor: "from-pink-50 to-red-50",
     accentColor: "text-red-500",
-    cornerElements: "❤️💝🌹💌",
-    edgeElements: "💕💖💗💘",
+    cornerElements: [
+      { emoji: "❤️", position: "top-left" },
+      { emoji: "💝", position: "top-right" },
+      { emoji: "🌹", position: "bottom-left" },
+      { emoji: "💌", position: "bottom-right" },
+    ],
+    edgeElements: [
+      { emoji: "💕", position: "top-left" },
+      { emoji: "💖", position: "top-right" },
+      { emoji: "💗", position: "bottom-left" },
+      { emoji: "💘", position: "bottom-right" },
+    ],
     particles: [
       { emoji: "❤️", count: 15, speed: "slow", size: "medium" },
       { emoji: "💕", count: 12, speed: "medium", size: "medium" },
@@ -60,8 +93,18 @@ export const decorationThemes = {
     emoji: "🎆",
     backgroundColor: "from-blue-50 to-yellow-50",
     accentColor: "text-blue-600",
-    cornerElements: "🎆🎇✨🎉",
-    edgeElements: "🥳🌟🎊🎈",
+    cornerElements: [
+      { emoji: "🎆", position: "top-left" },
+      { emoji: "🎇", position: "top-right" },
+      { emoji: "✨", position: "bottom-left" },
+      { emoji: "🎉", position: "bottom-right" },
+    ],
+    edgeElements: [
+      { emoji: "🎊", position: "top-left" },
+      { emoji: "🎈", position: "top-right" },
+      { emoji: "🌟", position: "bottom-left" },
+      { emoji: "🥳", position: "bottom-right" },
+    ],
     particles: [
       { emoji: "🎆", count: 10, speed: "medium", size: "large" },
       { emoji: "🎇", count: 8, speed: "fast", size: "medium" },
@@ -76,8 +119,18 @@ export const decorationThemes = {
     emoji: "🐰",
     backgroundColor: "from-yellow-50 to-pink-50",
     accentColor: "text-yellow-600",
-    cornerElements: "🐰🐣🌷🌸",
-    edgeElements: "🥚🌼💐🌺",
+    cornerElements: [
+      { emoji: "🐰", position: "top-left" },
+      { emoji: "🐣", position: "top-right" },
+      { emoji: "🌷", position: "bottom-left" },
+      { emoji: "🌸", position: "bottom-right" },
+    ],
+    edgeElements: [
+      { emoji: "🥚", position: "top-left" },
+      { emoji: "🌼", position: "top-right" },
+      { emoji: "💐", position: "bottom-left" },
+      { emoji: "🌺", position: "bottom-right" },
+    ],
     particles: [
       { emoji: "🐰", count: 6, speed: "slow", size: "large" },
       { emoji: "🐣", count: 12, speed: "medium", size: "medium" },
@@ -92,8 +145,18 @@ export const decorationThemes = {
     emoji: "☀️",
     backgroundColor: "from-yellow-50 to-blue-50",
     accentColor: "text-yellow-500",
-    cornerElements: "☀️🏖️🌊🍉",
-    edgeElements: "🕶️🎣🏄‍♂️🌴",
+    cornerElements: [
+      { emoji: "☀️", position: "top-left" },
+      { emoji: "🏖️", position: "top-right" },
+      { emoji: "🌊", position: "bottom-left" },
+      { emoji: "🍉", position: "bottom-right" },
+    ],
+    edgeElements: [
+      { emoji: "🕶️", position: "top-left" },
+      { emoji: "🎣", position: "top-right" },
+      { emoji: "🏄‍♂️", position: "bottom-left" },
+      { emoji: "🌴", position: "bottom-right" },
+    ],
     particles: [
       { emoji: "☀️", count: 8, speed: "slow", size: "large" },
       { emoji: "🌊", count: 12, speed: "medium", size: "medium" },
@@ -107,18 +170,12 @@ export const getCurrentSeasonTheme = () => {
   const month = new Date().getMonth()
   const date = new Date().getDate()
 
-  // December: Christmas
-  if (month === 11) return "christmas"
-  // October: Halloween
-  if (month === 9) return "halloween"
-  // February: Valentine
-  if (month === 1) return "valentine"
-  // January: New Year (first 2 weeks)
-  if (month === 0 && date <= 14) return "newyear"
-  // March - April: Easter
-  if ((month === 2 && date >= 20) || (month === 3 && date <= 25)) return "easter"
-  // June - August: Summer
-  if (month >= 5 && month <= 7) return "summer"
+  if (month === 11) return "christmas"          // December
+  if (month === 9) return "halloween"          // October
+  if (month === 1) return "valentine"          // February
+  if (month === 0 && date <= 14) return "newyear"  // Jan first 2 weeks
+  if ((month === 2 && date >= 20) || (month === 3 && date <= 25)) return "easter" // Easter
+  if (month >= 5 && month <= 7) return "summer" // June - August
 
   return "default"
 }
