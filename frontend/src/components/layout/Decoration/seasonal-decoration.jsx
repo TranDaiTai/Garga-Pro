@@ -103,15 +103,15 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
     <>
       {/* Background gradient - FIXED: Sử dụng background thay vì gradient nếu cần */}
 
-      {currentTheme.backgroundColor && (
+      {/* {currentTheme.backgroundColor && (
         <div
-          className={`fixed inset-0 pointer-events-none bg-gradient-to-b ${currentTheme.backgroundColor} z-0`}
+          className={`fixed inset-0 pointer-events-none bg-gradient-to-b ${currentTheme.backgroundColor} `}
           style={{ 
-            // opacity: 0.3
+            opacity: 0.3
           }}
         />
         
-      )}
+      )} */}
 
       {/* Corner decorations */}
 
@@ -213,7 +213,7 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
 
       {/* Falling particles */}
       {!isReducedMotion && particles.length > 0 && (
-        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="fixed inset-0 pointer-events-none overflow-hidden ">
           {particles.map((particle) => (
             <div
               key={particle.id}
