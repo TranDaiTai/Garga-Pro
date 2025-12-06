@@ -1,0 +1,101 @@
+/* navbar.css */
+@layer components {
+  /* ====================== BLOCK: navbar ====================== */
+  .navbar {
+    @apply sticky top-0 z-50 w-full bg-background/95 backdrop-blur-md border-b border-orange-200;
+  }
+
+  .navbar__container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .navbar__inner {
+    @apply flex items-center justify-between h-16;
+  }
+
+  /* ====================== LOGO ====================== */
+  .navbar__logo {
+    @apply flex-shrink-0 
+  }
+
+  .navbar__logo-link {
+    @apply flex items-center gap-3 group;
+  }
+
+  .navbar__logo-icon-wrapper {
+    @apply w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-orange-500/30;
+  }
+
+  .navbar__logo-text {
+    @apply hidden sm:flex flex-col;
+  }
+
+  .navbar__logo-title {
+    @apply text-lg font-bold text-gray-900;
+  }
+
+  .navbar__logo-subtitle {
+    @apply text-xs text-orange-600 font-medium;
+  }
+
+  /* ====================== NAV LINKS (desktop) ====================== */
+  .navbar__links {
+    @apply hidden md:flex items-center gap-8;
+  }
+
+  .navbar__link {
+    @apply text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors duration-200 relative group;
+  }
+
+  .navbar__link::after {
+    content: "";
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-orange-600 group-hover:w-full transition-all duration-300;
+  }
+
+  /* ====================== ACTIONS (desktop) ====================== */
+  .navbar__actions {
+    @apply hidden md:flex items-center gap-4;
+  }
+
+  .navbar__phone {
+    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors duration-200;
+  }
+
+  .navbar__booking-btn {
+    @apply px-6 py-2 bg-orange-600 text-white rounded-lg font-medium text-sm hover:bg-orange-700 transition-all duration-200 hover:shadow-lg hover:shadow-orange-600/30;
+  }
+
+  /* ====================== MOBILE TOGGLE ====================== */
+  .navbar__toggle {
+    @apply md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200;
+  }
+
+  /* ====================== MOBILE MENU ====================== */
+  .navbar__mobile-menu {
+    @apply md:hidden pb-4 border-t border-orange-200;
+  }
+
+  .navbar__mobile-links {
+    @apply flex flex-col gap-3 pt-4;
+  }
+
+  .navbar__mobile-link {
+    @apply px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200;
+  }
+
+  .navbar__mobile-actions {
+    @apply flex gap-3 pt-2 border-t border-orange-200 mt-2;
+  }
+
+  .navbar__mobile-phone {
+    @apply flex-1 px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2;
+  }
+
+  .navbar__mobile-booking {
+    @apply flex-1 px-4 py-2 bg-orange-600 text-white rounded-lg font-medium text-sm hover:bg-orange-700 transition-all duration-200;
+  }
+
+  .link-as-flex {
+    @apply inline-flex items-center justify-center;
+  }
+}
