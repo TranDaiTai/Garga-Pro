@@ -13,7 +13,7 @@ export const decorationThemes = {
     name: "Christmas",
     enabled: true,
     emoji: "🎄",
-    backgroundColor: "from-red-50 to-green-50",
+    backgroundColor: "from-red-100 to-green-100",
     accentColor: "text-red-600",
     cornerElements: [
       { emoji: "🎄", position: "top-left" },
@@ -39,7 +39,7 @@ export const decorationThemes = {
     name: "Halloween",
     enabled: true,
     emoji: "🎃",
-    backgroundColor: "from-orange-50 to-purple-50",
+    backgroundColor: "from-orange-100 to-purple-100",
     accentColor: "text-orange-600",
     cornerElements: [
       { emoji: "🎃", position: "top-left" },
@@ -65,7 +65,7 @@ export const decorationThemes = {
     name: "Valentine's Day",
     enabled: true,
     emoji: "❤️",
-    backgroundColor: "from-pink-50 to-red-50",
+    backgroundColor: "from-pink-100 to-red-100",
     accentColor: "text-red-500",
     cornerElements: [
       { emoji: "❤️", position: "top-left" },
@@ -91,7 +91,7 @@ export const decorationThemes = {
     name: "New Year",
     enabled: true,
     emoji: "🎆",
-    backgroundColor: "from-blue-50 to-yellow-50",
+    backgroundColor: "from-blue-100 to-yellow-100",
     accentColor: "text-blue-600",
     cornerElements: [
       { emoji: "🎆", position: "top-left" },
@@ -117,7 +117,7 @@ export const decorationThemes = {
     name: "Easter",
     enabled: true,
     emoji: "🐰",
-    backgroundColor: "from-yellow-50 to-pink-50",
+    backgroundColor: "from-yellow-100 to-pink-100",
     accentColor: "text-yellow-600",
     cornerElements: [
       { emoji: "🐰", position: "top-left" },
@@ -143,7 +143,7 @@ export const decorationThemes = {
     name: "Summer",
     enabled: true,
     emoji: "☀️",
-    backgroundColor: "from-yellow-50 to-blue-50",
+    backgroundColor: "from-yellow-100 to-blue-100",
     accentColor: "text-yellow-500",
     cornerElements: [
       { emoji: "☀️", position: "top-left" },
