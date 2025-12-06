@@ -107,7 +107,7 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
         <div
           className={`fixed inset-0 pointer-events-none bg-gradient-to-b ${currentTheme.backgroundColor} -z-1 `}
           style={{ 
-            opacity: 0.5
+            opacity: 1
           }}
         />
         

@@ -1,7 +1,7 @@
 // src/components/layout/DefaultLayout.jsx
 import React from 'react';
 import Navbar from './Navbar/Navbar';
-import Footer from './Footer';
+import Footer from './Footer/Footer';
 
 const DefaultLayout = ({ children }) => {
   return (

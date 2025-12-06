@@ -15,7 +15,7 @@
 
   /* ====================== LOGO ====================== */
   .navbar__logo {
-    @apply flex-shrink-0 
+    @apply flex-shrink-0;
   }
 
   .navbar__logo-link {
