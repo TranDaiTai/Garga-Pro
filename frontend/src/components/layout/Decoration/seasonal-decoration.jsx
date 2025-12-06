@@ -103,15 +103,15 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
     <>
       {/* Background gradient - FIXED: Sử dụng background thay vì gradient nếu cần */}
 
-      {/* {currentTheme.backgroundColor && (
+      {currentTheme.backgroundColor && (
         <div
-          className={`fixed inset-0 pointer-events-none bg-gradient-to-b ${currentTheme.backgroundColor} `}
+          className={`fixed inset-0 pointer-events-none bg-gradient-to-b ${currentTheme.backgroundColor} -z-1 `}
           style={{ 
-            opacity: 0.3
+            opacity: 0.5
           }}
         />
         
-      )} */}
+      )}
 
       {/* Corner decorations */}
 
