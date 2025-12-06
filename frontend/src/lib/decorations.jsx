@@ -4,7 +4,7 @@ export const decorationThemes = {
     name: "Auto Seasonal",
     enabled: true,
     emoji: "🌎",
-    backgroundColor: "bg-gradient-to-b from-orange-50 to-red-50 ",
+    backgroundColor: "",
     cornerElements: [],
     
     edgeElements: [],

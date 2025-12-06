@@ -1,9 +1,9 @@
-import HeroBanner from "../components/sections/home/hero-banner/hero-banner"
+import HeroBanner from "../components/sections/home/hero-banner"
 import AboutSection from "../components/sections/home/about-section"
 import ServicesSection from "../components/sections/home/services"
-import PromotionsSection from "../components/sections/home/promotions/promotions"
+import PromotionsSection from "../components/sections/home/promotions"
 import ReviewsSection from "../components/sections/home/review-section"
-import StatisticsSection from "@/components/sections/home/statistics-section"
+import StatisticsSection from "@/components/sections/home/statistics-section/statistics-section"
 import SectionWrapper from "@/components/layout/section-wrapper"
 import FeaturesSection from "@/components/sections/home/features-section"
 

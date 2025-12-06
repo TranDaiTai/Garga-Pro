@@ -1,3 +1,4 @@
+import { PromotionCard } from "@/components/ui/Card/index" 
 const promotions = [
   {
     title: "Bảo dưỡng định kỳ",
@@ -39,34 +40,5 @@ export default function PromotionsSection() {
         </div>
       </div>
     </section>
-  )
-}
-
-function PromotionCard({ promotion }) {
-  return (
-    <div className="promotion-card">
-      <div className="promotion-card__background">
-        <div className="promotion-card__circle promotion-card__circle--top-right" />
-        <div className="promotion-card__circle promotion-card__circle--bottom-left" />
-      </div>
-      
-      <div className="promotion-card__content">
-        <div className="promotion-card__discount-badge">
-          <div className="promotion-card__discount-value">{promotion.discount}</div>
-        </div>
-        
-        <h3 className="promotion-card__title">{promotion.title}</h3>
-        <p className="promotion-card__description">{promotion.description}</p>
-        
-        <div className="promotion-card__footer">
-          <p className="promotion-card__validity">{promotion.valid}</p>
-          <div className="promotion-card__arrow">
-            <svg className="promotion-card__arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
   )
 }

@@ -1,0 +1,31 @@
+/* Block: Services Section */
+.services {
+  @apply w-full py-16 md:py-24;
+}
+
+/* Elements: Services Header */
+.services__header {
+  @apply text-center mb-16;
+}
+
+.services__title {
+  @apply text-4xl md:text-5xl font-bold text-foreground mb-4;
+}
+
+.services__subtitle {
+  @apply text-foreground/70 max-w-2xl mx-auto text-lg;
+}
+
+/* Elements: Services Grid */
+.services__grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+/* Block: Service Card */
+.service-card {
+  @apply relative bg-white rounded-2xl p-8 border border-border transition-all duration-300;
+}
+
+.service-card:hover {
+  @apply shadow-2xl border-accent -translate-y-2;
+}

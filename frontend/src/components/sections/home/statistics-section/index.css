@@ -1,0 +1,85 @@
+@layer components {
+  /* ====================== STATISTICS BLOCK ====================== */
+  .statistics {
+    @apply w-full py-20 md:py-32 bg-gradient-to-b from-background to-muted/50;
+  }
+
+  .statistics__container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .statistics__header {
+    @apply text-center mb-16;
+  }
+
+  .statistics__title {
+    @apply text-4xl md:text-6xl font-bold text-foreground mb-6 
+           opacity-0 translate-y-10 animate-fadeInUp;
+  }
+
+  .statistics__description {
+    @apply text-lg text-foreground/70 max-w-3xl mx-auto leading-relaxed
+           opacity-0 translate-y-10 animate-fadeInUp animation-delay-300;
+  }
+
+  .statistics__grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12;
+  }
+
+  /* ====================== CARD ====================== */
+  .statistics__card {
+    @apply relative overflow-hidden rounded-3xl bg-card border border-border/70 
+           p-10 text-center flex flex-col items-center
+           opacity-0 translate-y-16 transition-all duration-700
+           hover:border-orange-400 hover:shadow-2xl hover:shadow-orange-500/10 
+           hover:-translate-y-4 backdrop-blur-sm;
+  }
+
+  /* Khi vào viewport → hiện */
+  .statistics__card.visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .statistics__card-icon {
+    @apply w-16 h-16 text-orange-600 mb-6 drop-shadow-lg 
+           transition-all duration-500 hover:scale-125 hover:rotate-12;
+  }
+
+  .statistics__card-counter {
+    @apply text-5xl md:text-6xl font-bold tabular-nums min-h-20 flex items-end justify-center;
+  }
+
+  .statistics__card-label {
+    @apply text-xl font-bold text-foreground mt-4;
+  }
+
+  .statistics__card-sublabel {
+    @apply text-foreground/60 text-sm mt-2 max-w-xs mx-auto leading-relaxed;
+  }
+
+  /* ====================== ANIMATIONS ====================== */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+}
+@layer utilities {
+  /* Animation fade in lên – dùng mãi mãi */
+  .animate-on-scroll {
+    @apply opacity-0 translate-y-12;
+    transition: all 0.8s ease-out;
+  }
+
+  .animate-on-scroll.visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Delay cho từng card */
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
+  .delay-400 { transition-delay: 400ms; }
+  .delay-500 { transition-delay: 500ms; }
+  .delay-600 { transition-delay: 600ms; }
+}

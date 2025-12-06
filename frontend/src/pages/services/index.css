@@ -1,0 +1,30 @@
+/* Block: Services Page */
+.services-page {
+  @apply min-h-screen bg-background;
+}
+
+/* Elements: Services Page Header */
+.services-page__header {
+  @apply bg-gradient-to-b from-orange-50 to-background py-16 px-4 sm:px-6 lg:px-8;
+}
+
+.services-page__header-container {
+  @apply max-w-7xl mx-auto text-center;
+}
+
+.services-page__title {
+  @apply text-5xl font-bold text-foreground mb-4;
+}
+
+.services-page__subtitle {
+  @apply text-xl text-foreground/70;
+}
+
+/* Elements: Services Grid Section */
+.services-page__grid-section {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20;
+}
+
+.services-page__grid-container {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
