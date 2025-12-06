@@ -11,9 +11,9 @@ import SeasonalLayout from '@/components/layout/SeasonalLayout';
 
 const publicRoutes = [
   { path: '/', component: Home, layout:SeasonalLayout},
-  {path: '/booking', component:Booking},
-  {path: '/services', component: services},
-  {path: '/services/:id', component: ServiceDetail},
+  {path: '/booking', component:Booking, layout:SeasonalLayout},
+  {path: '/services', component: services, layout:SeasonalLayout},
+  {path: '/services/:id', component: ServiceDetail, layout:SeasonalLayout},
   {path: '*', component: NotFound },
 
 ];

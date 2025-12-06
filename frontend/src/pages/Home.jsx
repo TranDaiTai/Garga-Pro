@@ -1,4 +1,4 @@
-import HeroBanner from "../components/sections/home/hero-banner"
+import HeroBanner from "../components/sections/home/hero-banner/hero-banner"
 import AboutSection from "../components/sections/home/about-section"
 import ServicesSection from "../components/sections/home/services"
 import PromotionsSection from "../components/sections/home/promotions/promotions"

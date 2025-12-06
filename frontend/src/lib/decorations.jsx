@@ -2,9 +2,11 @@ export const decorationThemes = {
   default: {
     theme: "default",
     name: "Auto Seasonal",
-    enabled: false,
+    enabled: true,
     emoji: "🌎",
+    backgroundColor: "bg-gradient-to-b from-orange-50 to-red-50 ",
     cornerElements: [],
+    
     edgeElements: [],
     particles: [],
   },
