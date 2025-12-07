@@ -35,6 +35,8 @@ const services = [
 export default function ServicesSection() {
   return (
     <section className="services">
+      <div className="services__background" > 
+        <div className="services__container"> 
       <div className="services__header">
         <h2 className="services__title">Dịch vụ chuyên nghiệp</h2>
         <p className="services__subtitle">
@@ -47,6 +49,9 @@ export default function ServicesSection() {
           <ServiceCard key={index} service={service} />
         ))}
       </div>
+      </div>
+      </div>
+
     </section>
   )
 }

@@ -71,24 +71,27 @@
 
 /* Block: Promotion Card */
 .promotion-card {
-  @apply relative bg-white rounded-2xl p-8 border-2 border-accent overflow-hidden transition-all duration-300 flex flex-col;
+  @apply relative bg-gradient-to-br from-orange-50 to-white rounded-2xl p-8 border-1  overflow-hidden transition-all duration-300 flex flex-col;
 }
+
 
 .promotion-card:hover {
   @apply shadow-2xl -translate-y-2;
 }
 
+/* absolute top-0 right-0 w-20 h-20 bg-accent/5 rounded-bl-[3rem] transition-all */
+
 /* Elements: Promotion Card Background */
 .promotion-card__circle {
-  @apply absolute rounded-full transition-all duration-300;
+  @apply absolute rounded-bl-[3rem] transition-all duration-300;
 }
 
 .promotion-card__circle--top-right {
-  @apply top-0 right-0 w-32 h-32 bg-accent/10 -mr-16 -mt-16;
+  @apply top-0 right-0 w-20 h-20 bg-accent/5;
 }
 
 .promotion-card:hover .promotion-card__circle--top-right {
-  @apply w-40 h-40;
+  @apply w-24 h-24;
 }
 
 .promotion-card__circle--bottom-left {

@@ -1,10 +1,10 @@
 /* Block: Promotions Section */
 .promotions {
-  @apply relative;
+  /* @apply relative; */
 }
 
 .promotions__background {
-  @apply border-1 border-orange-200 absolute inset-0 bg-gradient-to-b from-orange-50 to-transparent opacity-100 rounded-3xl;
+  /* @apply border-1 border-orange-200 absolute inset-0 bg-gradient-to-b from-orange-50 to-transparent opacity-100 rounded-3xl; */
 }
 
 .promotions__container {
@@ -27,13 +27,4 @@
 /* Elements: Promotions Grid */
 .promotions__grid {
   @apply grid grid-cols-1 md:grid-cols-3 gap-8;
-}
-
-/* Block: Promotion Card */
-.promotion-card {
-  @apply relative bg-white rounded-2xl p-8 border-2 border-accent overflow-hidden transition-all duration-300 flex flex-col;
-}
-
-.promotion-card:hover {
-  @apply shadow-2xl -translate-y-2;
 }
