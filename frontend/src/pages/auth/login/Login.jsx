@@ -1,4 +1,5 @@
 "use client"
+import api from "@/api/api.js"   // thêm dòng này
 
 import React from "react"
 import { useState } from "react"
@@ -7,22 +8,46 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
-
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")   // thêm state lỗi
+
+  // const router = useRouter()  // nếu dùng Next.js
+  // const navigate = useNavigate() // nếu dùng React Router
+
 
   const handleLogin = async (e) => {
     e.preventDefault()
     setIsLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsLoading(false)
-    console.log("[v0] Login attempted with:", { email, password })
-  }
+    setError("")
 
-  const handleSocialLogin = (provider) => {
-    console.log("[v0] Social login with:", provider)
+    try {
+      const response = await api.post('/api/auth/login', {
+        email,
+        password
+      })
+
+      console.log("Đăng nhập thành công!", response.data)
+
+      // Lưu thông tin user (hoặc token) nếu cần
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+      // localStorage.setItem('token', response.data.accessToken)
+
+      alert(`Chào ${response.data.user.name}! Đăng nhập thành công`)
+
+      // Chuyển hướng sau khi login thành công
+      // router.push('/dashboard')
+      // navigate('/dashboard')
+
+    } catch (err) {
+      const msg = err.response?.data?.message || 'Đăng nhập thất bại, thử lại!'
+      setError(msg)
+      console.error(err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -45,6 +70,11 @@ export default function LoginPage() {
         </CardHeader>
 
         <CardContent className="card-content">
+          {error && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
+            {error}
+          </div>
+        )}
           <form onSubmit={handleLogin} className="login-form">
             <div className="form-group">
               <Label htmlFor="email" className="form-label">

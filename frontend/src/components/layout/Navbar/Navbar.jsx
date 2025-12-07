@@ -46,19 +46,26 @@ export default function Navbar() {
 
           {/* Desktop Actions Block */}
           <div className="navbar__actions">
-            <a
+            {/* <a
               href="tel:+84123456789"
               className="navbar__phone"
             >
               <Phone className="navbar__phone-icon" />
               <span className="navbar__phone-text">1800 1234</span>
-            </a>
+            </a> */}
+             <Link
+              to="/register"
+              className="navbar__phone"
+            >
+              Đăng Ký
+            </Link>
             <Link
-              to="/booking"
+              to="/login"
               className="navbar__button"
             >
-              Đặt Lịch
+              Đăng Nhập
             </Link>
+            
           </div>
 
           {/* Mobile Menu Button */}
@@ -90,16 +97,19 @@ export default function Navbar() {
                 </a>
               ))}
               <div className="navbar__mobile-actions">
-                <a
-                  href="tel:+84123456789"
-                  className="navbar__mobile-phone"
+                <Link
+                  to="/register"
+                  className="navbar__phone"
+                  >
+                    Đăng Ký
+                </Link>
+                <Link
+                  to="/login"
+                  className="navbar__button"
                 >
-                  <Phone className="navbar__mobile-phone-icon" />
-                  Gọi
-                </a>
-                <button className="navbar__mobile-button">
-                  Đặt Lịch
-                </button>
+                  Đăng Nhập
+                </Link>
+            
               </div>
             </div>
           </div>
