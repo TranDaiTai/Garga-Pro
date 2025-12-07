@@ -19,12 +19,16 @@ export function BrandStorySection() {
               Từ năm 2010, ProGarage được thành lập với mục đích duy nhất: cung cấp dịch vụ sửa chữa và bảo dưỡng ô tô
               chất lượng cao nhất. Chúng tôi tin rằng một chiếc xe được chăm sóc kỹ lưỡng sẽ mang lại sự an toàn và
               thoải mái cho chủ nhân.
-            </p>
-
-            <p className="text-foreground/70 mb-8">
+              <br />
+              <br />
               Với đội ngũ kỹ thuật viên giàu kinh nghiệm, công nghệ hiện đại, và cam kết về chất lượng, chúng tôi đã
               phục vụ hàng ngàn khách hàng và trở thành địa chỉ tin cậy cho mọi nhu cầu bảo dưỡng xe của bạn.
             </p>
+
+            {/* <p className="text-foreground/70 mb-8">
+              Với đội ngũ kỹ thuật viên giàu kinh nghiệm, công nghệ hiện đại, và cam kết về chất lượng, chúng tôi đã
+              phục vụ hàng ngàn khách hàng và trở thành địa chỉ tin cậy cho mọi nhu cầu bảo dưỡng xe của bạn.
+            </p> */}
 
             {/* <a
               href="/about"

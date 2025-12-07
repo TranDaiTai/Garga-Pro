@@ -55,3 +55,38 @@ export default function ServicesSection() {
     </section>
   )
 }
+
+
+
+
+
+// export default function ServicesSection() {
+//   return (
+    
+//     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+//       <div className="grid grid-cols-1 md:grid-cols-[30%_70%] gap-12 p">
+//         {/* Left side - content */}
+//         <div className="relative">
+//            <h2 className="text-4xl font-bold text-foreground mb-6 leading-tight">Hơn 15 năm dịch vụ ô tô hàng đầu</h2>
+//         </div>
+
+//         {/* Right side - Content */}
+//         <div>
+
+//           <p className="text-foreground/70 mb-6 leading-relaxed text-lg">
+//             Garage của chúng tôi được thành lập vào năm 2009 với mục tiêu cung cấp dịch vụ sửa chữa và bảo dưỡng ô tô
+//             chất lượng cao. Chúng tôi đã phục vụ hàng nghìn khách hàng hài lòng.
+//           </p>
+//           <p className="text-foreground/70 leading-relaxed mb-6">
+//             Với đội ngũ kỹ thuật viên được đào tạo bài bản và trang thiết bị tối tân, chúng tôi cam kết mang lại trải
+//             nghiệm dịch vụ tốt nhất cho mọi khách hàng.
+//           </p>
+
+//         </div>
+        
+//       </div>
+//     </div>
+      
+//   )
+// }

@@ -91,7 +91,7 @@ function Counter({ target, suffix, duration = 1000 }) {
 
   return (
     <div ref={ref}>
-      <div className="text-4xl md:text-5xl font-bold text-accent">
+      <div className="text-2xl md:text-3xl font-bold text-accent">
         {count}
         {suffix}
       </div>
@@ -104,6 +104,7 @@ export default function StatisticsSection() {
     <section 
     // className="w-full py-20 md:py-32 bg-gradient-to-b from-background to-muted"
     >
+   
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-fadeIn">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">ProGarage & những con số</h2>
@@ -134,6 +135,7 @@ export default function StatisticsSection() {
           ))}
         </div>
       </div>
+
     </section>
   )
 }

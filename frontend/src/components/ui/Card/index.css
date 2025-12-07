@@ -2,25 +2,18 @@
 /* Elements: Service Card Link */
 @layer components {
   /* ====================== SERVICE CARD BLOCK ====================== */
-  .services-card {
+  /* .services-card {
     @apply block h-full;
-  }
-
-  .services-card__inner {
-    @apply bg-background rounded-2xl border border-border overflow-hidden 
-           h-full flex flex-col 
-           transition-all duration-500 ease-out
-           hover:shadow-2xl hover:border-orange-300 hover:-translate-y-3;
-  }
+  } */
 
   /* Hình nền + icon */
-  .services-card__image {
+  .Base-card__background {
     @apply relative h-56 bg-gradient-to-br from-orange-50 to-orange-100 
            flex items-center justify-center overflow-hidden
            transition-all duration-500;
   }
 
-  .services-card:hover .services-card__image {
+  .Base-card:hover .Base-card__background {
     @apply from-orange-200 to-orange-300 scale-105;
   }
 
@@ -29,53 +22,42 @@
            transition-transform duration-500;
   }
 
-  .services-card:hover .services-card__icon {
+  .Base-card:hover .services-card__icon {
     @apply scale-110 rotate-3;
   }
 
   /* Nội dung */
-  .services-card__content {
-    @apply p-8 flex flex-col flex-grow;
+  .Base-card__content {
+    @apply p-8 flex flex-col flex-grow ;
   }
 
-  .services-card__title {
+  .Base-card__title {
     @apply text-2xl font-bold text-foreground mb-3;
   }
 
-  .services-card__description {
-    @apply text-foreground/70 leading-relaxed mb-6 flex-grow;
+  .Base-card__description {
+    @apply text-foreground/70 leading-relaxed mb-6 flex-grow line-clamp-3;
   }
 
   /* Footer link */
-  .services-card__footer {
-    @apply flex items-center text-orange-600 font-semibold text-lg 
-           mt-auto transition-all duration-300;
+  .Base-card__footer {
+   @apply mt-auto flex items-center justify-between pt-4 border-t border-border 
+         text-orange-600 font-semibold text-lg transition-all duration-300;
   }
 
-  .services-card:hover .services-card__footer {
-    @apply gap-3;
-  }
-
-  .services-card__link-text {
-    @apply inline-flex items-center;
-  }
-
-  .services-card__arrow {
-    @apply w-5 h-5 transition-transform duration-300;
-  }
-
-  .services-card:hover .services-card__arrow {
-    @apply translate-x-2;
-  }
 }
 
 /* Block: Promotion Card */
-.promotion-card {
-  @apply relative bg-gradient-to-br from-orange-50 to-white rounded-2xl p-8 border-1  overflow-hidden transition-all duration-300 flex flex-col;
+.Base-card {
+  @apply relative bg-background rounded-2xl border-2  overflow-hidden transition-all duration-300 flex flex-col;
 }
 
+.Base-card {
+  @apply relative bg-background rounded-2xl border-2 overflow-hidden 
+         transition-all duration-300 flex flex-col h-full;
+}
 
-.promotion-card:hover {
+.Base-card:hover {
   @apply shadow-2xl -translate-y-2;
 }
 
@@ -90,7 +72,7 @@
   @apply top-0 right-0 w-20 h-20 bg-accent/5;
 }
 
-.promotion-card:hover .promotion-card__circle--top-right {
+.Base-card:hover .promotion-card__circle--top-right {
   @apply w-24 h-24;
 }
 
@@ -99,10 +81,6 @@
 }
 
 /* Elements: Promotion Card Content */
-.promotion-card__content {
-  @apply relative z-10 flex flex-col flex-grow ;
-}
-
 
 
 .promotion-card__discount-badge {
@@ -113,42 +91,30 @@
   @apply text-4xl font-bold text-accent;
 }
 
-.promotion-card__title {
-  @apply text-2xl font-bold text-foreground mb-3 transition-colors duration-300 line-clamp-1;
-}
 
-
-
-.promotion-card:hover .promotion-card__title {
+.Base-card:hover .promotion-card__title {
   @apply text-accent;
 }
 
-.promotion-card__description {
-  @apply text-foreground/70 mb-6 leading-relaxed line-clamp-4;
-}
 
 /* Elements: Promotion Card Footer */
-.promotion-card__footer {
-  @apply mt-auto flex items-center justify-between pt-4 border-t border-border;
-}
 
-
-.promotion-card__validity {
+.Base-card__sub-text {
   @apply text-sm text-foreground/60;
 }
 
-.promotion-card__arrow {
+.Base-card__arrow {
   @apply w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center transition-colors duration-300;
 }
 
-.promotion-card:hover .promotion-card__arrow {
+.Base-card:hover .Base-card__arrow {
   @apply bg-accent;
 }
 
-.promotion-card__arrow-icon {
+.Base-card__arrow-icon {
   @apply w-4 h-4 text-accent transition-colors duration-300;
 }
 
-.promotion-card:hover .promotion-card__arrow-icon {
+.Base-card:hover .Base-card__arrow-icon {
   @apply text-white;
 }

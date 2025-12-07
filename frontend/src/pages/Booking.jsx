@@ -39,7 +39,7 @@ export default function Booking() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen ">
 
       {/* Header */}
       <section className="bg-gradient-to-b from-orange-50 to-background py-12 px-4 sm:px-6 lg:px-8">

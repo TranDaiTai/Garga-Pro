@@ -1,6 +1,6 @@
 /* Block: Services Page */
 .services-page {
-  @apply min-h-screen bg-background;
+  @apply min-h-screen ;
 }
 
 /* Elements: Services Page Header */

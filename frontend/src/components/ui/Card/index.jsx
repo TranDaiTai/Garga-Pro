@@ -1,74 +1,160 @@
 import { Link } from "react-router-dom"
-import { ArrowRight } from "lucide-react"
 
-export function ServiceCard({ service }) {
-  const hasLink = !!(service.id || service.slug || service.link)
-  const to = `/services/${service.id || service.slug || service.link}`
+// Card Component Cơ Bản
+function Card({ 
+  children, 
+  href, 
+  className = "", 
+  backgroundContent,
+  as = "div" 
+}) {
+  const Wrapper = href ? Link : as
+  const wrapperProps = href ? { to: href, className: "block h-full" } : { className: "h-full" }
 
   return (
-    <div className={`services-card ${hasLink ? 'group cursor-pointer' : ''}`}>
-      {hasLink ? (
-        <Link to={to} className="block h-full">
-          <CardContent service={service} hasLink={true} />
-        </Link>
-      ) : (
-        <div className="h-full">
-          <CardContent service={service} hasLink={false} />
+    <div className={`${href ? 'group cursor-pointer' : ''} ${className}`}>
+      <Wrapper {...wrapperProps}>
+        <div className="Base-card">
+          {backgroundContent && (
+            <div className="Base-card__background">
+              {backgroundContent}
+            </div>
+          )}
+          <div className="Base-card__content">
+            {children}
+          </div>
+        </div>
+      </Wrapper>
+    </div>
+  )
+}
+
+// Card Content Component
+function CardContent({ 
+  title, 
+  description, 
+  footer,
+  className = "" 
+}) {
+  return (
+    <>
+      {title && <h3 className="Base-card__title">{title}</h3>}
+      {description && <p className="Base-card__description">{description}</p>}
+      {footer && <div className={`Base-card__footer ${className}`}>{footer}</div>}
+    </>
+  )
+}
+
+// Default Footer với Arrow
+function CardFooter({ text, showArrow = true }) {
+  return (
+    <>
+      {text && <p className="Base-card__sub-text">{text}</p>}
+      {showArrow && (
+        <div className="Base-card__arrow">
+          <svg className="Base-card__arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
         </div>
       )}
-    </div>
+    </>
   )
 }
-// Tách nội dung để không lặp code
-export function CardContent({ service }) {
+
+// Service Card Component
+export function ServiceCard({ service }) {
+  const hasLink = !!(service.id || service.slug || service.link)
+  const href = hasLink ? `/services/${service.id || service.slug || service.link}` : null
+
+  const backgroundContent = (
+    <div className="services-card__icon">{service.icon}</div>
+  )
+
+  const footer = hasLink ? (
+    <CardFooter text="Xem chi tiết" />
+  ) : null
+
   return (
-    <div className="services-card__inner">
-      <div className="services-card__image">
-        <div className="services-card__icon">{service.icon}</div>
-      </div>
-
-      <div className="services-card__content">
-        <h3 className="services-card__title">{service.title}</h3>
-        <p className="services-card__description">{service.description}</p>
-
-        {/* Chỉ hiện footer nếu có link */}
-        {service.id || service.slug || service.link ? (
-          <div className="services-card__footer">
-            <span className="services-card__link-text">Xem chi tiết</span>
-            <ArrowRight className="services-card__arrow" />
-          </div>
-        ) : null}
-      </div>
-    </div>
+    <Card
+      href={href}
+      backgroundContent={backgroundContent}
+    >
+      <CardContent
+        title={service.title}
+        description={service.description}
+        footer={footer}
+      />
+    </Card>
   )
 }
 
-
+// Promotion Card Component
 export function PromotionCard({ promotion }) {
+  const backgroundContent = (
+    <>
+      <div className="promotion-card__circle promotion-card__circle--top-right" />
+      <div className="promotion-card__circle promotion-card__circle--bottom-left" />
+      <div className="promotion-card__discount-badge">
+        <div className="promotion-card__discount-value">{promotion.discount}</div>
+      </div>
+    </>
+  )
+
+  const footer = (
+    <CardFooter 
+      text={promotion.valid}
+      showArrow={true}
+    />
+  )
+
   return (
-    <div className="promotion-card">
-      <div className="promotion-card__background">
-        <div className="promotion-card__circle promotion-card__circle--top-right" />
-        <div className="promotion-card__circle promotion-card__circle--bottom-left" />
-      </div>
-      
-      <div className="promotion-card__content">
-        <div className="promotion-card__discount-badge">
-          <div className="promotion-card__discount-value">{promotion.discount}</div>
-        </div>
-        
-        <h3 className="promotion-card__title">{promotion.title}</h3>
-        <p className="promotion-card__description">{promotion.description}</p>
-        
-        <div className="promotion-card__footer">
-          <p className="promotion-card__validity">{promotion.valid}</p>
-          <div className="promotion-card__arrow">
-            <svg className="promotion-card__arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Card
+      href={promotion.link}
+      backgroundContent={backgroundContent}
+    >
+      <CardContent
+        title={promotion.title}
+        description={promotion.description}
+        footer={footer}
+      />
+    </Card>
+  )
+}
+
+// Generic Card Component để tái sử dụng ở mọi nơi
+export function GenericCard({ 
+  title,
+  description,
+  icon,
+  link,
+  footerText,
+  showFooterArrow = true,
+  backgroundContent,
+  customBackground,
+  ...props 
+}) {
+  const background = customBackground || backgroundContent || (
+    icon && <div className="services-card__icon">{icon}</div>
+  )
+
+  const footer = footerText ? (
+    <CardFooter 
+      text={footerText}
+      showArrow={showFooterArrow}
+    />
+  ) : null
+
+  return (
+    <Card
+      href={link}
+      backgroundContent={background}
+      {...props}
+    >
+      <CardContent
+        title={title}
+        description={description}
+        footer={footer}
+      />
+    </Card>
   )
 }
