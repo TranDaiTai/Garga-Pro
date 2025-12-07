@@ -1,4 +1,4 @@
-import {ServiceCard} from "@/components/ui/Card/index"
+import {ServiceCard} from "@/components/ui/Card_custom/index"
 const services = [
   {
     icon: "🔧",

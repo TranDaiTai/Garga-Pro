@@ -1,5 +1,5 @@
 "use client"
-import {ServiceCard} from "@/components/ui/Card/index";
+import {ServiceCard} from "@/components/ui/Card_custom/index";
 import { Link } from "react-router-dom"
 import { servicesData } from "@/lib/services-data"
 import { ArrowRight } from "lucide-react"

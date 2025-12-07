@@ -35,7 +35,7 @@ export default function FeaturesSection() {
 
             <div
               key={index}
-              className="group relative bg-gradient-to-br from-orange-50 to-white rounded-2xl p-8 border border-orange-100 hover:border-accent transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
+              className="group relative bg-gradient-to-br from-white to-orange-50 rounded-2xl p-8 border border-orange-100 hover:border-accent transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:from-orange-50 hover: to-orange-100"
             >
               <div className="absolute top-0 right-0 w-20 h-20 bg-accent/5 rounded-bl-[3rem] transition-all group-hover:w-24 group-hover:h-24" />
               <div className="relative z-10">

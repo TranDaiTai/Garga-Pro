@@ -105,7 +105,7 @@ export default function StatisticsSection() {
     // className="w-full py-20 md:py-32 bg-gradient-to-b from-background to-muted"
     >
    
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16 animate-fadeIn">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">ProGarage & những con số</h2>
           <p className="text-lg text-foreground/70 max-w-2xl mx-auto">

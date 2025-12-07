@@ -102,12 +102,36 @@ const edgeEmojis = currentTheme.edgeElements?.map(item => item.emoji) || []
   return (
     <>
       {/* Background gradient - FIXED: Sử dụng background thay vì gradient nếu cần */}
+{/* 
+.login-page {
+  @apply min-h-screen flex items-center justify-center p-4;
+  background-image: url('/gradient-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+} */}
+
+      {/* { !currentTheme.backgroundColor && (
+         <div
+          className={`fixed inset-0 pointer-events-none bg-gradient-to-b ${currentTheme.backgroundColor} -z-1 `}
+          style={{ 
+            opacity: 1,
+            backgroundImage: "url('/gradient-background.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+      )
+      } */}
+
 
       {currentTheme.backgroundColor && (
         <div
           className={`fixed inset-0 pointer-events-none bg-gradient-to-b ${currentTheme.backgroundColor} -z-1 `}
           style={{ 
-            opacity: 1
+            opacity: 1,
           }}
         />
         

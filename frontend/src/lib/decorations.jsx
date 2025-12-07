@@ -10,6 +10,9 @@ export const decorationThemes = {
     edgeElements: [],
     particles: [],
   },
+
+
+  
   christmas: {
     theme: "christmas",
     name: "Christmas",

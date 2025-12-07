@@ -1,4 +1,4 @@
-import { PromotionCard } from "@/components/ui/Card/index" 
+import { PromotionCard } from "@/components/ui/Card_custom/index" 
 const promotions = [
   {
     title: "Bảo dưỡng định kỳ",
