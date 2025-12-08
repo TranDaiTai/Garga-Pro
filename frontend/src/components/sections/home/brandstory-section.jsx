@@ -39,26 +39,27 @@ export function BrandStorySection() {
           </div>
 
           {/* Right: Images with skewed effect */}
-          <div className="animate-fadeIn relative h-96 hidden lg:block">
+          {/* <div className="animate-fadeIn relative h-96 hidden lg:block"> */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-4">
+            
             {/* Top right image */}
-            <div
-              className="absolute top-0 right-0 w-72 h-48 rounded-2xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300"
-              style={{
-                backgroundImage: `url('/professional-garage-technician-with-tools.jpg')`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            />
+            <div className="rounded-2xl overflow-hidden shadow-xl ">
+              <img
+                src="/professional-garage-technician-with-tools.jpg"
+                alt="Technician"
+                className="w-full object-cover"
+              />
+            </div>
 
             {/* Bottom left image */}
-            <div
-              className="absolute bottom-0 left-0 w-64 h-44 rounded-2xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-300"
-              style={{
-                backgroundImage: `url('/car-repair-service-garage.jpg')`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            />
+            <div className="rounded-2xl overflow-hidden shadow-xl ">
+              <img
+                src="/car-repair-service-garage.jpg"
+                alt="Car Repair"
+                className="w-full object-cover"
+              />
+            </div>
+
           </div>
         </div>
       </div>

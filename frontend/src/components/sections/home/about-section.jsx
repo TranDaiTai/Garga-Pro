@@ -11,7 +11,7 @@ export default function AboutSection() {
             <img
               src="/professional-garage-team-working-on-vehicle.png"
               alt="Garage team"
-              className="rounded-lg w-full h-96 object-cover shadow-lg"
+              className="rounded-2xl w-full h-96 object-cover shadow-lg "
             />
           </div>
 

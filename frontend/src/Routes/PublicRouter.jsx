@@ -8,6 +8,7 @@ import NotFound from '../pages/Notfound';
 import { Layout } from 'lucide-react';
 import SeasonalLayout from '@/components/layout/SeasonalLayout';
 import LoginPage from '@/pages/auth/login/Login';
+import DefaultLayout from '@/components/layout/DefaultLayout';
 
 
 
@@ -36,7 +37,7 @@ const publicRoutes = [
   { 
     path: '*', 
     component: NotFound,
-    layout: null // Không cần layout cho 404
+    layout:DefaultLayout // Không cần layout cho 404
   }
 ];
 

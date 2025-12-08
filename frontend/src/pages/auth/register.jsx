@@ -2,11 +2,12 @@
 
 
 import { useState } from "react"
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import api from "@/api/api"
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("")
@@ -14,31 +15,51 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
+  const navigate = useNavigate()
+   
 
   const handleSignup = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
     setError("")
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match")
-      return
+    try {
+      // 1. Kiểm tra mật khẩu trùng
+      if (password !== confirmPassword) {
+        setError("Mật khẩu xác nhận không khớp!")
+        return
+      }
+
+      // 2. Kiểm tra độ dài mật khẩu
+      if (password.length < 8) {
+        setError("Mật khẩu phải ít nhất 8 ký tự")
+        return
+      }
+
+      // 3. Gọi API đăng ký (dùng route bạn đã có: POST /api/users)
+      const response = await api.post("api/users", {
+        email,
+        password,
+        name: email.split("@")[0] // tạm lấy phần trước @ làm tên (có thể thêm input tên sau)
+      })
+
+      // console.log("Đăng ký thành công!", response.data)
+
+      // Thành công → chuyển về trang login
+      // alert("Đăng ký thành công! Vui lòng đăng nhập")
+      navigate("/login") // hoặc "/" nếu trang login là root
+
+    } catch (err) {
+      const msg = err.response?.data?.message 
+        || err.message 
+        || "Đăng ký thất bại, vui lòng thử lại"
+      setError(msg)
+      console.error(err)
+    } finally {
+      setIsLoading(false)
     }
-
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters")
-      return
-    }
-
-    setIsLoading(true)
-    // Simulate signup process
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsLoading(false)
-    console.log("[v0] Signup attempted with:", { email, password })
   }
-
-  const handleSocialSignup = (provider) => {
-    console.log("[v0] Social signup with:", provider)
-  }
+  
 
   return (
     <div
@@ -237,3 +258,4 @@ export default function RegisterPage() {
     </div>
   )
 }
+

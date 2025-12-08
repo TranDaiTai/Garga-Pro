@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { useNavigate } from "react-router-dom";
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -15,7 +17,7 @@ export default function LoginPage() {
   const [error, setError] = useState("")   // thêm state lỗi
 
   // const router = useRouter()  // nếu dùng Next.js
-  // const navigate = useNavigate() // nếu dùng React Router
+  const navigate = useNavigate() // nếu dùng React Router
 
 
   const handleLogin = async (e) => {
@@ -29,17 +31,16 @@ export default function LoginPage() {
         password
       })
 
-      console.log("Đăng nhập thành công!", response.data)
+      // console.log("Đăng nhập thành công!", response.data)
 
       // Lưu thông tin user (hoặc token) nếu cần
       localStorage.setItem('user', JSON.stringify(response.data.user))
       // localStorage.setItem('token', response.data.accessToken)
 
-      alert(`Chào ${response.data.user.name}! Đăng nhập thành công`)
+      // alert(`Chào ${response.data.user.name}! Đăng nhập thành công`)
 
       // Chuyển hướng sau khi login thành công
-      // router.push('/dashboard')
-      // navigate('/dashboard')
+      navigate('/')
 
     } catch (err) {
       const msg = err.response?.data?.message || 'Đăng nhập thất bại, thử lại!'

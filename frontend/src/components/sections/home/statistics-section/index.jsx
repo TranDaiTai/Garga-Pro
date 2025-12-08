@@ -117,7 +117,7 @@ export default function StatisticsSection() {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="flex flex-col items-center p-8 rounded-xl bg-background border border-border hover:border-accent transition-all duration-300 hover:shadow-lg hover:shadow-accent/10 animate-slideUp"
+              className="flex flex-col items-center p-8 rounded-xl bg-background border border-border transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 "
               style={{
                 animationDelay: `${index * 100}ms`,
               }}
