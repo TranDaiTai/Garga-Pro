@@ -6,7 +6,9 @@ const router = express.Router();
 let users = [
   { id: 1, name: 'Nguyễn Văn A', email: 'a@gmail.com', password: '123456789' },
   { id: 2, name: 'Trần Thị B', email: 'b@gmail.com', password: '123456789' },
-  { id: 3, name: 'admin',       email: 'admin@gmail.com', password: 'admin123' }
+  { id: 3, name: 'admin',       email: 'admin@gmail.com', password: 'admin123' },
+  { id: 4, name: 'admin',       email: 'trandaitai2005@gmail.com', password: '123456789' }
+
 ];
 
 

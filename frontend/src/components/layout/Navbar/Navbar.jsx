@@ -1,71 +1,77 @@
-import { useState } from "react"
-import { Link } from 'react-router-dom'
-import { Menu, X, Wrench, Phone } from "lucide-react"
+"use client"
+
+import { useState, useContext } from "react"
+import { Link } from "react-router-dom"
+import { Menu, X, Wrench, ChevronDown, LogOut, User } from "lucide-react"
+import { AuthContext } from "@/context/AuthContext"
+import { UserProfileDesktop, UserProfileMobile } from "@/components/common/userAvatar"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const { user, logout } = useContext(AuthContext)
 
   const navLinks = [
     { href: "/services", label: "Dịch Vụ" },
-    { href: "/about", label: "Về Chúng Tôi" },
+    { href: "/product", label: "Sản Phẩm" },
     { href: "/promotions", label: "Khuyến Mãi" },
-    { href: "/reviews", label: "Đánh Giá" },
+    { href: "/about", label: "Về Chúng Tôi" },
     { href: "/contact", label: "Liên Hệ" },
   ]
+
+  const handleLogout = () => {
+    logout()
+    setIsProfileOpen(false)
+    setIsOpen(false)
+  }
 
   return (
     <nav className="navbar">
       <div className="navbar__container">
         <div className="navbar__content">
-          {/* Logo Block */}
+
+          {/* Logo */}
           <a href="/" className="navbar__logo">
             <div className="navbar__logo-wrapper">
               <div className="navbar__logo-icon">
                 <Wrench className="navbar__logo-icon-svg" />
               </div>
               <div className="navbar__logo-text">
-                <span className="navbar__logo-title">ProGarage</span>
+                <span className="navbar__logo-title">Garage Đại Lộc</span>
                 <span className="navbar__logo-subtitle">Garage Chuyên Nghiệp</span>
               </div>
             </div>
           </a>
 
-          {/* Desktop Navigation Links Block */}
+          {/* Desktop Links */}
           <div className="navbar__links">
             {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="navbar__link"
-              >
+              <a key={link.label} href={link.href} className="navbar__link">
                 {link.label}
                 <span className="navbar__link-underline" />
               </a>
             ))}
           </div>
 
-          {/* Desktop Actions Block */}
+          {/* Desktop Actions */}
           <div className="navbar__actions">
-            {/* <a
-              href="tel:+84123456789"
-              className="navbar__phone"
-            >
-              <Phone className="navbar__phone-icon" />
-              <span className="navbar__phone-text">1800 1234</span>
-            </a> */}
-             <Link
-              to="/register"
-              className="navbar__phone"
-            >
-              Đăng Ký
-            </Link>
-            <Link
-              to="/login"
-              className="navbar__button"
-            >
-              Đăng Nhập
-            </Link>
-            
+            {!user ? (
+              <>
+                <Link to="/register" className="navbar__button-secondary">
+                  Đăng Ký
+                </Link>
+                <Link to="/login" className="navbar__button-primary">
+                  Đăng Nhập
+                </Link>
+              </>
+            ) : (
+              <UserProfileDesktop
+                user={user}
+                isOpen={isProfileOpen}
+                onToggle={() => setIsProfileOpen(!isProfileOpen)}
+                onLogout={handleLogout}
+              />
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -74,15 +80,11 @@ export default function Navbar() {
             className="navbar__menu-button"
             aria-label="Toggle menu"
           >
-            {isOpen ? (
-              <X className="navbar__menu-icon" />
-            ) : (
-              <Menu className="navbar__menu-icon" />
-            )}
+            {isOpen ? <X className="navbar__menu-icon" /> : <Menu className="navbar__menu-icon" />}
           </button>
         </div>
 
-        {/* Mobile Menu Block */}
+        {/* Mobile Menu */}
         {isOpen && (
           <div className="navbar__mobile-menu">
             <div className="navbar__mobile-content">
@@ -96,25 +98,27 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
+
+              <div className="navbar__mobile-divider"></div>
+
               <div className="navbar__mobile-actions">
-                <Link
-                  to="/register"
-                  className="navbar__phone"
-                  >
-                    Đăng Ký
-                </Link>
-                <Link
-                  to="/login"
-                  className="navbar__button"
-                >
-                  Đăng Nhập
-                </Link>
-            
+                {!user ? (
+                  <>
+                    <Link to="/register" className="navbar__button-secondary-full">
+                      Đăng Ký
+                    </Link>
+                    <Link to="/login" className="navbar__button-primary-full">
+                      Đăng Nhập
+                    </Link>
+                  </>
+                ) : (
+                  <UserProfileMobile user={user} onLogout={handleLogout} />
+                )}
               </div>
             </div>
           </div>
         )}
       </div>
     </nav>
-  )
+  );
 }

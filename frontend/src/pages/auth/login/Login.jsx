@@ -1,24 +1,26 @@
 "use client"
-import api from "@/api/api.js"   // thêm dòng này
 
 import React from "react"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useNavigate } from "react-router-dom";
-
+import { authApi } from "@/api/auth/auth.services"
+import { AuthContext } from "@/context/AuthContext"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")   // thêm state lỗi
+  const { login } = useContext(AuthContext);
+
 
   // const router = useRouter()  // nếu dùng Next.js
   const navigate = useNavigate() // nếu dùng React Router
-
+  
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -26,18 +28,20 @@ export default function LoginPage() {
     setError("")
 
     try {
-      const response = await api.post('/api/auth/login', {
+      const response =  
+      await authApi.login(
         email,
         password
-      })
+      );
 
-      // console.log("Đăng nhập thành công!", response.data)
+      console.log("Đăng nhập thành công!", response.data)
 
       // Lưu thông tin user (hoặc token) nếu cần
       localStorage.setItem('user', JSON.stringify(response.data.user))
-      // localStorage.setItem('token', response.data.accessToken)
+      localStorage.setItem('token', response.data.accessToken)
 
       // alert(`Chào ${response.data.user.name}! Đăng nhập thành công`)
+         login(response.data.user, response.data.accessToken);
 
       // Chuyển hướng sau khi login thành công
       navigate('/')
@@ -56,11 +60,11 @@ export default function LoginPage() {
       <div className="page-overlay"></div>
 
       {/* Floating glass orbs */}
-      <div className="orbs-container">
+      {/* <div className="orbs-container">
         <div className="glass-orb orb-1"></div>
         <div className="glass-orb orb-2"></div>
         <div className="glass-orb orb-3"></div>
-      </div>
+      </div> */}
 
       <Card className="login-card">
         <CardHeader className="card-header">

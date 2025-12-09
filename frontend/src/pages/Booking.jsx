@@ -42,7 +42,7 @@ export default function Booking() {
     <main className="min-h-screen ">
 
       {/* Header */}
-      <section className="bg-gradient-to-b from-orange-50 to-background py-12 px-4 sm:px-6 lg:px-8">
+      <section className="background py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl font-bold text-foreground mb-4">Đặt Lịch Hẹn</h1>
           <p className="text-xl text-foreground/70">Chọn dịch vụ và thời gian phù hợp cho bạn</p>
@@ -51,7 +51,7 @@ export default function Booking() {
 
       {/* Booking Form */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <form onSubmit={handleSubmit} className="bg-background rounded-xl border border-border shadow-lg p-8 sm:p-12">
+        <form onSubmit={handleSubmit} className="bg-background rounded-xl border-2 border-border shadow-2xl p-8 sm:p-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             {/* Name */}
             <div>
@@ -217,3 +217,7 @@ export default function Booking() {
     </main>
   )
 }
+
+
+
+

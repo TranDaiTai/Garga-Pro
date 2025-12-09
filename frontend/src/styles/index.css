@@ -7,6 +7,8 @@
 
 
 @import "@/pages/services/index.css";
+@import "@/pages/product/index.css";
+
 
 @import "@/components/ui/Card_custom/index.css";
 
@@ -39,6 +41,7 @@
   --muted-foreground: oklch(0.556 0 0);
   /* Updated --accent to orange (#EA580C equivalent in oklch) */
   --accent: oklch(0.586 0.199 29.23);
+  --accent-dark: oklch(0.55 0.24 41.116);
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
@@ -76,6 +79,7 @@
   --muted-foreground: oklch(0.708 0 0);
   /* Updated --accent for dark mode to bright orange */
   --accent: oklch(0.65 0.225 29.23);
+  --accent-dark: oklch(0.62 0.25 41.116);
   --accent-foreground: oklch(0.145 0 0);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);

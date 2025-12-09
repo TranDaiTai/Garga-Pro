@@ -10,7 +10,7 @@ import SeasonalLayout from '@/components/layout/SeasonalLayout';
 import LoginPage from '@/pages/auth/login/Login';
 import DefaultLayout from '@/components/layout/DefaultLayout';
 
-
+import ProductPage from '@/pages/product/product';
 
 const publicRoutes = [
   { 
@@ -38,6 +38,10 @@ const publicRoutes = [
     path: '*', 
     component: NotFound,
     layout:DefaultLayout // Không cần layout cho 404
+  },
+  {
+    path:"/product",
+    component:ProductPage
   }
 ];
 
