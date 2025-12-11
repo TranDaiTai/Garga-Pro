@@ -114,7 +114,7 @@ export default function ProductDetailPage() {
         <div className="text-center space-y-4">
           <h1 className="text-3xl font-bold text-foreground">Không tìm thấy sản phẩm</h1>
           <button
-            onClick={() => navigate("/products")}
+            onClick={() => navigate("/product")}
             className="text-accent hover:underline flex items-center gap-2 mx-auto"
           >
             <ChevronLeft className="w-5 h-5" />

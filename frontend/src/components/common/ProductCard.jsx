@@ -6,7 +6,7 @@ export default function ProductCard({ product }) {
 
   return (
     <Link
-      to={`/products/${product.id}`}
+      to={`/product/${product.id}`}
       className="products__card group block transform transition-all hover:-translate-y-1 hover:shadow-xl"
     >
       <div className="relative overflow-hidden bg-secondary rounded-lg mb-3">

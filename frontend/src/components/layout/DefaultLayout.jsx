@@ -2,6 +2,7 @@
 import React from 'react';
 import Navbar from './Navbar/Navbar';
 import Footer from './Footer/Footer';
+import { Outlet } from 'react-router-dom';
 
 const DefaultLayout = ({ children }) => {
   return (
@@ -9,6 +10,7 @@ const DefaultLayout = ({ children }) => {
         <Navbar />
         {/* Nội dung trang sẽ được nhét vào đây */}
         <main className="flex-1">
+          <Outlet/>
           {children}
         </main>
         <Footer />
