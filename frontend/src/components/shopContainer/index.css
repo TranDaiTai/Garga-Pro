@@ -6,7 +6,7 @@
 /* Added products page specific styles */
 @layer components {
   .products__container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto p-4 sm:p-6 lg:p-8;
   }
 
   .products__header {

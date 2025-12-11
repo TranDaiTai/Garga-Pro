@@ -6,21 +6,14 @@
 
 
 
-@import "@/pages/services/index.css";
-@import "@/pages/product/index.css";
 
 
 @import "@/components/ui/Card_custom/index.css";
 
 /* Import tất cả component CSS ở đây */
-@import "../components/layout/Navbar/navbar.css";
 @import "../components/sections/home/promotions/index.css";
 @import "../components/sections/home/hero-banner/index.css";
-/* @import "../components/sections/home/about-section/about-section.css"; */
-/* @import "../components/sections/home/statistics-section/index.css"; */
 @import "../components/sections/home/services/index.css";
-@import "../components/layout/Footer/footer.css";
-@import "../pages/auth/login/index.css";
 
 
 @custom-variant dark (&:is(.dark *));

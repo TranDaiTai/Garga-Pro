@@ -1,12 +1,17 @@
 "use client"
 
 import { ChevronDown } from "lucide-react"
-import { SORT_OPTIONS, PRICE_SORT_OPTIONS } from "@/lib/products-constants"
 import { useState } from "react"
 
 
 
-export function SortBar({ searchTerm, onSearchChange, sortBy, onSortChange }) {
+export function SortBar({ 
+  searchTerm, 
+  onSearchChange, 
+  sortBy, 
+  onSortChange ,
+  SORT_OPTIONS,
+  PRICE_SORT_OPTIONS}) {
   const [visiblePriceSort, setVisiblePriceSort] = useState(false)
 
   return (

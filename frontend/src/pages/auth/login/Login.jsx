@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { authApi } from "@/api/auth/auth.services"
 import { AuthContext } from "@/context/AuthContext"
 
+import "./index.css"
+
+
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -57,14 +60,7 @@ export default function LoginPage() {
 
   return (
     <div className="login-page">
-      <div className="page-overlay"></div>
 
-      {/* Floating glass orbs */}
-      {/* <div className="orbs-container">
-        <div className="glass-orb orb-1"></div>
-        <div className="glass-orb orb-2"></div>
-        <div className="glass-orb orb-3"></div>
-      </div> */}
 
       <Card className="login-card">
         <CardHeader className="card-header">
@@ -113,7 +109,9 @@ export default function LoginPage() {
 
             <Button
               type="submit"
-              className="submit-btn"
+              className="w-full ripple-effect hover-lift font-sans font-bold py-5 transition-all duration-300"
+              style={{ backgroundColor: "var(--accent)", color: "white" }}
+
               disabled={isLoading}
             >
               {isLoading ? "Signing In..." : "Sign In"}

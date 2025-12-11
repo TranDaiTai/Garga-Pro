@@ -1,5 +1,5 @@
 /* footer.css */
-/* @reference '@/styles/index.css'; */
+@reference '@/styles/index.css';
 @layer components {
   /* ====================== BLOCK: footer ====================== */
   .footer {

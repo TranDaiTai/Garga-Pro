@@ -9,9 +9,9 @@ import { Layout } from 'lucide-react';
 import SeasonalLayout from '@/components/layout/SeasonalLayout';
 import LoginPage from '@/pages/auth/login/Login';
 import DefaultLayout from '@/components/layout/DefaultLayout';
-
+import ProductDetailPage from '@/pages/product/[id]';
 import ProductPage from '@/pages/product/product';
-
+import CartPage from '@/pages/Cart';
 const publicRoutes = [
   { 
     path: '/', 
@@ -42,6 +42,14 @@ const publicRoutes = [
   {
     path:"/product",
     component:ProductPage
+  },
+  {
+    path:"/products/:id",
+    component:ProductDetailPage
+  },
+  {
+    path:"/cart",
+    component:CartPage
   }
 ];
 

@@ -5,7 +5,8 @@ import { Link } from "react-router-dom"
 import { Menu, X, Wrench, ChevronDown, LogOut, User } from "lucide-react"
 import { AuthContext } from "@/context/AuthContext"
 import { UserProfileDesktop, UserProfileMobile } from "@/components/common/userAvatar"
-
+import "./navbar.css"
+import CartHeader from "./cartHeader"
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
@@ -65,12 +66,18 @@ export default function Navbar() {
                 </Link>
               </>
             ) : (
-              <UserProfileDesktop
-                user={user}
-                isOpen={isProfileOpen}
-                onToggle={() => setIsProfileOpen(!isProfileOpen)}
-                onLogout={handleLogout}
-              />
+               <>
+                  <CartHeader>
+
+                  </CartHeader>
+                  <UserProfileDesktop
+                  user={user}
+                  isOpen={isProfileOpen}
+                  onToggle={() => setIsProfileOpen(!isProfileOpen)}
+                  onLogout={handleLogout}
+                  />
+               
+                </>
             )}
           </div>
 
@@ -112,7 +119,12 @@ export default function Navbar() {
                     </Link>
                   </>
                 ) : (
+                  <>
+                  <CartHeader>
+
+                  </CartHeader>
                   <UserProfileMobile user={user} onLogout={handleLogout} />
+                  </>
                 )}
               </div>
             </div>

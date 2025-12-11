@@ -1,4 +1,4 @@
-// import "./footer.css";
+import "./footer.css";
 
 // Footer.jsx
 export default function Footer() {

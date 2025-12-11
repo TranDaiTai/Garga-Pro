@@ -1,7 +1,6 @@
 "use client"
 
 import { ChevronDown } from "lucide-react"
-import { CATEGORIES, PRICE_RANGES, RATINGS } from "@/lib/products-constants"
 import { useState } from "react"
 
 
@@ -14,6 +13,8 @@ export function FilterSidebar({
   onTogglePriceRange,
   onToggleRating,
   onToggleDiscount,
+  CATEGORIES,PRICE_RANGES,
+  RATINGS,
 }) {
   const [expandedFilters, setExpandedFilters] = useState({
     category: true,
