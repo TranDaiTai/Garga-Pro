@@ -48,9 +48,6 @@
 }
 
 /* Block: Promotion Card */
-.Base-card {
-  @apply relative bg-background rounded-2xl border-2  overflow-hidden transition-all duration-300 flex flex-col;
-}
 
 .Base-card {
   @apply relative bg-background rounded-2xl border-2 overflow-hidden 
