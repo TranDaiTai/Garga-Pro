@@ -13,7 +13,7 @@ import { authApi } from "@/api/auth/auth.services"
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
-  const {user, setUser } = useContext(AuthContext)
+  const {user, setUser , isLoading} = useContext(AuthContext)
 
   const navLinks = [
     { href: "/services", label: "Dịch Vụ" },
@@ -28,6 +28,12 @@ export default function Navbar() {
     setUser(null) ; 
     setIsProfileOpen(false)
     setIsOpen(false)
+  }
+  if ( isLoading ) {
+    return (
+      <div> 
+      </div>
+    ) 
   }
 
   return (

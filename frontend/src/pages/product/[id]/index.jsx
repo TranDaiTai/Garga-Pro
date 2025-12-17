@@ -27,7 +27,7 @@ export default function ProductDetailPage() {
     const fectProductById = async () => {
       const res = await productApi.getProductById(id);
       setProduct(res.data);
-      console.log(res.data);
+      // console.log(res.data);
     };
     const fectReviewsProduct = async () => {
       const res = await reviewApi.getReviewsProduct(id);

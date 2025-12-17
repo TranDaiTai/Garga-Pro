@@ -7,6 +7,7 @@ const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');   // thêm dòng này
 const productRoutes = require('./routes/product')
 const reviewRouters = require('./routes/review')
+const cartRouters = require('./routes/cart')
 
 
 const app = express();
@@ -23,7 +24,8 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);  
 app.use('/api/product',productRoutes) // thêm dòng này
-app.use('/api/reviews/', reviewRouters)
+app.use('/api/reviews', reviewRouters)
+app.use('/api/cart',cartRouters)
 // Route test
 app.get("/", (req, res) => {
   res.send("API is running...");

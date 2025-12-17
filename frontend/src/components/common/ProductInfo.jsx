@@ -1,35 +1,40 @@
-import {
-  Star,
-  ShoppingCart,
-  Heart,
-} from "lucide-react";
-import { useCart } from "@/context/CartContext";
+import { Star, ShoppingCart, Heart, User } from "lucide-react";
 import { useState } from "react";
+import { CartApi } from "@/api/cart/cart.services";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useCart } from "@/context/CartContext";
+
 
 const ProductInfo = ({ product }) => {
   const [showAddedNotification, setShowAddedNotification] = useState(false);
-  const { addToCart } = useCart();
+  const { addItem } = useCart()
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const { user } = useAuth();
+
   // Helper: format tiền Việt Nam
   const formatPrice = (price) => price + "₫";
 
-  const syncCartItem = async () =>{
+const navigate = useNavigate();
+const location = useLocation();
+
+const handleAddToCart = async () => {
+  if (!user) {
     
+    navigate(
+      `/login?redirect=${encodeURIComponent(
+        location.pathname + location.search
+      )}`
+    );
+    return;
   }
-  const handleAddToCart = () => {
-    if (product) {
-      addToCart({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        quantity: quantity,
-        image: product.image,
-      });
-      setShowAddedNotification(true);
-      setTimeout(() => setShowAddedNotification(false), 2000);
-    }
-  };
+
+  addItem(product,quantity);
+
+  setShowAddedNotification(true);
+  setTimeout(() => setShowAddedNotification(false), 2000);
+};
 
   const discount =
     product.originalPrice > product.price

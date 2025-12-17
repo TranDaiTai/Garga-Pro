@@ -1,10 +1,14 @@
 import api from "../api";
-const PREFIX = "/api/cart/";
+const PREFIX = "/api/cart";
 export const CartApi = {
-  addToCard: (product) => {
-    return api.post(`${PREFIX}/add/${product.id}`);
+  addToCard: (product, quantity) => {
+    return api.post(`${PREFIX}/add`, {
+      product: product,
+      quantity: quantity,
+    });
   },
-  pullToCard: () => {
-    return api.post(`${PREFIX}`)
+
+  getCart: () => {
+    return api.get(`${PREFIX}`);
   },
 };
