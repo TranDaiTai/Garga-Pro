@@ -6,7 +6,7 @@ import { Trash2, Plus, Minus, ChevronLeft, ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
 export default function CartPage() {
-  const { items, removeFromCart, updateQuantity, clearCart, getTotalPrice } =
+  const { items, removeItem, updateQuantity, clearCart, getTotalPrice,isLoading } =
     useCart();
   const [showCheckout, setShowCheckout] = useState(false);
 
@@ -14,7 +14,7 @@ export default function CartPage() {
   const shippingCost = items.length > 0 ? 50000 : 0;
   const finalTotal = totalPrice + shippingCost;
 
-  if (items.length === 0 && !showCheckout) {
+  if ((items.length === 0 && !showCheckout) || isLoading ) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <div className="bg-card border-b border-border p-4">
@@ -41,7 +41,7 @@ export default function CartPage() {
               Hãy thêm sản phẩm để bắt đầu mua sắm
             </p>
             <Link
-              href="/products"
+              to="/product"
               className="inline-block bg-accent text-accent-foreground px-6 py-2 rounded-lg font-semibold hover:bg-accent/90 transition-colors"
             >
               Tiếp tục mua sắm
@@ -142,7 +142,7 @@ export default function CartPage() {
                       K
                     </p>
                     <button
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => removeItem(item.id)}
                       className="p-2 hover:bg-destructive/10 rounded transition-colors text-destructive"
                     >
                       <Trash2 className="w-4 h-4" />

@@ -7,8 +7,18 @@ export const CartApi = {
       quantity: quantity,
     });
   },
-
   getCart: () => {
-    return api.get(`${PREFIX}`);
+    return api.get(`${PREFIX}/`);
+  },
+  removeFromCart: (productId) => {
+    return api.post(`${PREFIX}/remove`, {
+      productId,
+    });
+  },
+  updateQuantity: (productId, quantity) => {
+    return api.post(`${PREFIX}/update`, {
+      productId,
+      quantity,
+    });
   },
 };

@@ -15,7 +15,6 @@ export function CartProvider({ children }) {
   useEffect(() => {
     const loadCart = async () => {
       setIsLoading(true);
-
       if (user) {
         // Đã đăng nhập → lấy từ backend
         try {
@@ -23,14 +22,11 @@ export function CartProvider({ children }) {
           setItems(res.data);
         } catch (err) {
           console.error("Load cart failed", err);
-       
         }
       } else {
-      
       }
       setIsLoading(false);
     };
-
 
     loadCart();
   }, [user]); // Chạy lại khi user login/logout
@@ -38,15 +34,15 @@ export function CartProvider({ children }) {
   // Các hàm thao tác giỏ hàng
   const addItem = (product, quantity = 1) => {
     setItems((prev) => {
-      const existing = prev.find((item) => item.productId === product.id);
+      const existing = prev.find((item) => item.id === product.id);
       if (existing) {
         return prev.map((item) =>
-          item.productId === product.id
+          item.id === product.id
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
-      return [...prev, { productId: product.id, product, price: product.price, quantity }];
+      return [...prev, { product, quantity }];
     });
 
     // Nếu đã login → gọi API đồng bộ lên server
@@ -56,7 +52,7 @@ export function CartProvider({ children }) {
   };
 
   const removeItem = (productId) => {
-    setItems((prev) => prev.filter((item) => item.productId !== productId));
+    setItems((prev) => prev.filter((item) => item.id !== productId));
 
     if (user) {
       CartApi.removeFromCart(productId).catch(console.error);
@@ -70,7 +66,7 @@ export function CartProvider({ children }) {
     }
     setItems((prev) =>
       prev.map((item) =>
-        item.productId === productId ? { ...item, quantity } : item
+        item.id === productId ? { ...item, quantity } : item
       )
     );
 

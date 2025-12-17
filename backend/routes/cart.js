@@ -28,7 +28,7 @@ router.post("/add", authMiddleware, (req, res) => {
     return res.status(400).json({ message: "Invalid data" });
   }
 
-  const existItem = cart.find(item => item.id === product.id);
+  const existItem = cart.find((item) => item.id === product.id);
 
   if (!existItem) {
     cart.push({
@@ -46,8 +46,49 @@ router.post("/add", authMiddleware, (req, res) => {
 });
 
 router.get("/", authMiddleware, (req, res) => {
-  const user = req.user;
-  return res.json(cart );
+  // const { user } = req.body;
+  return res.json(cart);
+});
+router.post("/remove", authMiddleware, (req, res) => {
+  const { productId } = req.body;
+
+  if (!productId) {
+    return res.status(400).json({ message: "Invalid data" });
+  }
+
+  const existItem = cart.find((item) => item.id === productId);
+
+  if (!existItem) {
+    return res.status(404).json({ message: "Item not found in cart" });
+  }
+
+  cart = cart.filter((item) => item.id !== productId);
+
+  res.json({
+    message: "Removed item from cart",
+    cart,
+  });
+});
+
+router.post("/update", authMiddleware, (req, res) => {
+  const { productId, quantity } = req.body;
+
+  if (!productId || quantity == null) {
+    return res.status(400).json({ message: "Invalid data" });
+  }
+
+  const index = cart.findIndex(item => item.id === productId);
+
+  if (index === -1) {
+    return res.status(404).json({ message: "Product not found in cart" });
+  }
+
+  cart[index].quantity = quantity;
+
+  res.json({
+    message: "Cart updated",
+    cart,
+  });
 });
 
 module.exports = router;

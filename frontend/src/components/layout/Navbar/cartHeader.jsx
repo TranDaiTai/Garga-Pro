@@ -5,7 +5,7 @@ import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
 function CartHeader() {
-  const { items, isLoading, getTotalItems } = useCart();
+  const {  isLoading, getTotalItems } = useCart();
 
   // Tính tổng số lượng sản phẩm trong giỏ
   const totalItems = getTotalItems();
