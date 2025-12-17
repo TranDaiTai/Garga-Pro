@@ -14,11 +14,10 @@ import "./index.css"
 
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState("trandaitai2005@gmail.com")
+  const [password, setPassword] = useState("123456789")
   const [error, setError] = useState("")   // thêm state lỗi
-  const { login } = useContext(AuthContext);
+  const { setUser, isLoading } = useContext(AuthContext);
 
 
   // const router = useRouter()  // nếu dùng Next.js
@@ -27,7 +26,6 @@ export default function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault()
-    setIsLoading(true)
     setError("")
 
     try {
@@ -36,16 +34,11 @@ export default function LoginPage() {
         email,
         password
       );
-
-      console.log("Đăng nhập thành công!", response.data)
-
-      // Lưu thông tin user (hoặc token) nếu cần
-      localStorage.setItem('user', JSON.stringify(response.data.user))
-      localStorage.setItem('token', response.data.accessToken)
-
       // alert(`Chào ${response.data.user.name}! Đăng nhập thành công`)
-         login(response.data.user, response.data.accessToken);
-
+        //  login(response.data.user, response.data.accessToken);
+      if ( response.data.user){
+        setUser(response.data.user)
+      }
       // Chuyển hướng sau khi login thành công
       navigate('/')
 
@@ -54,7 +47,6 @@ export default function LoginPage() {
       setError(msg)
       console.error(err)
     } finally {
-      setIsLoading(false)
     }
   }
 

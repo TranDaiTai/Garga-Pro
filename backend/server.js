@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require('cookie-parser');
+
 // server.js
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');   // thêm dòng này
@@ -12,6 +14,8 @@ const PORT = 5000;
 
 // Middleware
 app.use(cors());
+app.use(cookieParser()); // phải dùng trước router
+
 app.use(express.json());
 
 

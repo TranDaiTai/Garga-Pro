@@ -18,7 +18,7 @@
 
   /* Elements: Logo */
   .navbar__logo {
-    @apply flex-shrink-0 hover:opacity-80 transition-opacity;
+    @apply flex-shrink-0 hover:opacity-80 transition-opacity mr-4;
   }
 
   .navbar__logo-wrapper {

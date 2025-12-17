@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 
 
@@ -8,6 +8,17 @@ const CartContext = createContext(null)
 
 export function CartProvider({ children }) {
   const [items, setItems] = useState([])
+  const [loading, setIsLoading]= useState(false)
+
+  useEffect(()=>{
+  const fetchLocalStorage = () =>{
+    setIsLoading(true)
+    const cart = JSON.parse(localStorage.getItem('cart_user')) ; 
+    if ( cart) setItems(prev => [...prev,...cart]) 
+    setIsLoading(false)
+  }
+  fetchLocalStorage() ;
+  },[])
 
   const addToCart = (newItem) => {
     setItems((prev) => {
@@ -19,10 +30,13 @@ export function CartProvider({ children }) {
       }
       return [...prev, newItem]
     })
+    localStorage.setItem('cart_user', JSON.stringify(items))
   }
 
   const removeFromCart = (id) => {
     setItems((prev) => prev.filter((item) => item.id !== id))
+    localStorage.setItem('cart_user', items)
+
   }
 
   const updateQuantity = (id, quantity) => {
@@ -31,10 +45,16 @@ export function CartProvider({ children }) {
       return
     }
     setItems((prev) => prev.map((item) => (item.id === id ? { ...item, quantity } : item)))
+    localStorage.setItem('cart_user', JSON.stringify(items))
+
+
   }
 
   const clearCart = () => {
     setItems([])
+    localStorage.removeItem('cart_user')
+
+
   }
 
   const getTotalPrice = () => {

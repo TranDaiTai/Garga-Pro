@@ -1,24 +1,28 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import {Link} from "react-router-dom"
-import { Trash2, Plus, Minus, ChevronLeft, ShoppingCart } from "lucide-react"
-import { useCart } from "@/context/CartContext"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Trash2, Plus, Minus, ChevronLeft, ShoppingCart } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 export default function CartPage() {
-  const { items, removeFromCart, updateQuantity, clearCart, getTotalPrice } = useCart()
-  const [showCheckout, setShowCheckout] = useState(false)
+  const { items, removeFromCart, updateQuantity, clearCart, getTotalPrice } =
+    useCart();
+  const [showCheckout, setShowCheckout] = useState(false);
 
-  const totalPrice = getTotalPrice()
-  const shippingCost = items.length > 0 ? 50000 : 0
-  const finalTotal = totalPrice + shippingCost
+  const totalPrice = getTotalPrice();
+  const shippingCost = items.length > 0 ? 50000 : 0;
+  const finalTotal = totalPrice + shippingCost;
 
   if (items.length === 0 && !showCheckout) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <div className="bg-card border-b border-border p-4">
           <div className="max-w-7xl mx-auto flex items-center gap-2">
-            <Link href="/products" className="text-accent hover:text-accent/80 transition-colors">
+            <Link
+              href="/products"
+              className="text-accent hover:text-accent/80 transition-colors"
+            >
               <ChevronLeft className="w-5 h-5" />
             </Link>
             <h1 className="text-2xl font-bold text-foreground">Giỏ hàng</h1>
@@ -30,8 +34,12 @@ export default function CartPage() {
             <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
               <ShoppingCart className="w-10 h-10 text-muted-foreground" />
             </div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Giỏ hàng trống</h2>
-            <p className="text-muted-foreground mb-6">Hãy thêm sản phẩm để bắt đầu mua sắm</p>
+            <h2 className="text-2xl font-bold text-foreground mb-2">
+              Giỏ hàng trống
+            </h2>
+            <p className="text-muted-foreground mb-6">
+              Hãy thêm sản phẩm để bắt đầu mua sắm
+            </p>
             <Link
               href="/products"
               className="inline-block bg-accent text-accent-foreground px-6 py-2 rounded-lg font-semibold hover:bg-accent/90 transition-colors"
@@ -41,7 +49,7 @@ export default function CartPage() {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -49,7 +57,10 @@ export default function CartPage() {
       {/* Header */}
       <div className="bg-card border-b border-border p-4">
         <div className="max-w-7xl mx-auto flex items-center gap-2">
-          <Link href="/products" className="text-accent hover:text-accent/80 transition-colors">
+          <Link
+            href="/products"
+            className="text-accent hover:text-accent/80 transition-colors"
+          >
             <ChevronLeft className="w-5 h-5" />
           </Link>
           <h1 className="text-2xl font-bold text-foreground">Giỏ hàng</h1>
@@ -63,7 +74,10 @@ export default function CartPage() {
           <div className="lg:col-span-2">
             <div className="space-y-3">
               {items.map((item) => (
-                <div key={item.id} className="bg-card border border-border rounded-lg p-4 flex gap-4">
+                <div
+                  key={item.id}
+                  className="bg-card border border-border rounded-lg p-4 flex gap-4"
+                >
                   {/* Product Image */}
                   <div className="w-24 h-24 flex-shrink-0 bg-secondary rounded-lg overflow-hidden">
                     <img
@@ -82,13 +96,17 @@ export default function CartPage() {
                       >
                         {item.name}
                       </Link>
-                      <p className="text-accent font-bold mt-1">{item.price.toLocaleString("vi-VN").slice(0, -3)}K</p>
+                      <p className="text-accent font-bold mt-1">
+                        {item.price.toLocaleString("vi-VN").slice(0, -3)}K
+                      </p>
                     </div>
 
                     {/* Quantity Control */}
                     <div className="flex items-center gap-2">
                       <button
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity - 1)
+                        }
                         className="p-1 hover:bg-secondary rounded transition-colors"
                       >
                         <Minus className="w-4 h-4 text-foreground" />
@@ -96,11 +114,18 @@ export default function CartPage() {
                       <input
                         type="number"
                         value={item.quantity}
-                        onChange={(e) => updateQuantity(item.id, Math.max(1, Number(e.target.value)))}
+                        onChange={(e) =>
+                          updateQuantity(
+                            item.id,
+                            Math.max(1, Number(e.target.value))
+                          )
+                        }
                         className="w-12 text-center border border-border rounded py-1 bg-background text-foreground text-sm"
                       />
                       <button
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity + 1)
+                        }
                         className="p-1 hover:bg-secondary rounded transition-colors"
                       >
                         <Plus className="w-4 h-4 text-foreground" />
@@ -111,7 +136,10 @@ export default function CartPage() {
                   {/* Price & Remove */}
                   <div className="flex flex-col items-end justify-between">
                     <p className="font-bold text-foreground">
-                      {(item.price * item.quantity).toLocaleString("vi-VN").slice(0, -3)}K
+                      {(item.price * item.quantity)
+                        .toLocaleString("vi-VN")
+                        .slice(0, -3)}
+                      K
                     </p>
                     <button
                       onClick={() => removeFromCart(item.id)}
@@ -135,7 +163,9 @@ export default function CartPage() {
           {/* Order Summary */}
           <div className="lg:col-span-1">
             <div className="bg-card border border-border rounded-lg p-6 sticky top-4">
-              <h2 className="text-lg font-bold text-foreground mb-4">Tóm tắt đơn hàng</h2>
+              <h2 className="text-lg font-bold text-foreground mb-4">
+                Tóm tắt đơn hàng
+              </h2>
 
               <div className="space-y-3 border-b border-border pb-4 mb-4">
                 <div className="flex justify-between text-sm">
@@ -177,11 +207,17 @@ export default function CartPage() {
         {showCheckout && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-card rounded-lg p-6 max-w-md w-full">
-              <h2 className="text-2xl font-bold text-foreground mb-4">Xác nhận đơn hàng</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">
+                Xác nhận đơn hàng
+              </h2>
               <div className="space-y-3 mb-6 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Số lượng sản phẩm:</span>
-                  <span className="font-semibold text-foreground">{items.length}</span>
+                  <span className="text-muted-foreground">
+                    Số lượng sản phẩm:
+                  </span>
+                  <span className="font-semibold text-foreground">
+                    {items.length}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Tổng cộng:</span>
@@ -191,21 +227,32 @@ export default function CartPage() {
                 </div>
               </div>
               <p className="text-sm text-muted-foreground mb-6">
-                Cảm ơn bạn đã lựa chọn. Chúng tôi sẽ xử lý đơn hàng của bạn ngay lập tức!
+                Cảm ơn bạn đã lựa chọn. Chúng tôi sẽ xử lý đơn hàng của bạn ngay
+                lập tức!
               </p>
-              <button
-                onClick={() => {
-                  clearCart()
-                  setShowCheckout(false)
-                }}
-                className="w-full bg-accent text-accent-foreground py-2 rounded-lg font-semibold hover:bg-accent/90 transition-colors"
-              >
-                Hoàn tất
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    clearCart();
+                    setShowCheckout(false);
+                  }}
+                  className="w-full bg-accent text-accent-foreground py-2 rounded-lg font-semibold hover:bg-accent/90 transition-colors"
+                >
+                  Hoàn tất
+                </button>
+                <button
+                  onClick={() => {
+                    setShowCheckout(false);
+                  }}
+                  className="w-full bg-black text-accent-foreground py-2 rounded-lg font-semibold hover:bg-black/90 transition-colors"
+                >
+                  Huỷ
+                </button>
+              </div>
             </div>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }

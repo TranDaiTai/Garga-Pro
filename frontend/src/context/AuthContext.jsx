@@ -1,37 +1,30 @@
+import { authApi } from "@/api/auth/auth.services";
 import { createContext, useState, useEffect, useContext } from "react";
 
 export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem("user");
-    return saved ? JSON.parse(saved) : null;
-  });
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [token, setToken] = useState(() => {
-    return localStorage.getItem("token") || null;
-  });
-
-  const login = (userData, tokenData) => {
-    setUser(userData);
-    setToken(tokenData);
-
-    localStorage.setItem("user", JSON.stringify(userData));
-    localStorage.setItem("token", tokenData);
+  const fetchMe = async () => {
+    setIsLoading(true);
+    try {
+      const res = await authApi.verify();
+      setUser(res.data.user);
+    } catch (err) {
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const logout = () => {
-    setUser(null);
-    setToken(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-  };
+  useEffect(() => {
+    fetchMe()
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ user, isLoading, setUser }}>{children}</AuthContext.Provider>
   );
-
 }
-export const usAuth = () => useContext(AuthContext)
+export const usAuth = () => useContext(AuthContext);
