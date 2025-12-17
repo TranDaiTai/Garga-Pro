@@ -3,6 +3,8 @@ const cors = require("cors");
 // server.js
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');   // thêm dòng này
+const productRoutes = require('./routes/product')
+const reviewRouters = require('./routes/review')
 
 
 const app = express();
@@ -15,7 +17,9 @@ app.use(express.json());
 
 // Routes
 app.use('/api/users', userRoutes);
-app.use('/api/auth', authRoutes);   // thêm dòng này
+app.use('/api/auth', authRoutes);  
+app.use('/api/product',productRoutes) // thêm dòng này
+app.use('/api/reviews/', reviewRouters)
 // Route test
 app.get("/", (req, res) => {
   res.send("API is running...");
