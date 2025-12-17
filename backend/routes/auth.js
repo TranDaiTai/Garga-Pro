@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
-const session = []
+
 
 let users = [
   { id: 1, name: "Nguyễn Văn A", email: "a@gmail.com", password: "123456789" },

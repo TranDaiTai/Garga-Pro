@@ -14,7 +14,7 @@ export default function CartPage() {
   const shippingCost = items.length > 0 ? 50000 : 0;
   const finalTotal = totalPrice + shippingCost;
 
-  if ((items.length === 0 && !showCheckout) || isLoading ) {
+  if ((items.length === 0 && !showCheckout) || !totalPrice ) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <div className="bg-card border-b border-border p-4">

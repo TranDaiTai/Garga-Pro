@@ -3,9 +3,6 @@ import { useState } from "react";
 const  ProductImage = ({ product }) => {
   const productImages = [
     product?.image,
-    "/product-detail-angle-1.jpg",
-    "/product-detail-angle-2.jpg",
-    "/product-detail-angle-3.jpg",
   ].filter(Boolean);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   return (
