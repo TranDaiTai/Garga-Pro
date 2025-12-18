@@ -42,7 +42,7 @@ export function CartProvider({ children }) {
             : item
         );
       }
-      return [...prev, { product, quantity }];
+      return [...prev, {... product, quantity }];
     });
 
     // Nếu đã login → gọi API đồng bộ lên server
@@ -81,10 +81,22 @@ export function CartProvider({ children }) {
       CartApi.clearCart().catch(console.error);
     }
   };
+  const paySubmit = () =>{
+    if (user ) {
+      CartApi.paySubmit(); 
+    }
 
-  const getTotalPrice = () => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
+  }
+
+ const getTotalPrice = () => {
+  if (!Array.isArray(items)) return 0;
+
+  return items.reduce(
+    (total, item) => total + (item.price || 0) * (item.quantity || 0),
+    0
+  );
+};
+
 
   const getTotalItems = () => {
     return items.reduce((total, item) => total + item.quantity, 0);

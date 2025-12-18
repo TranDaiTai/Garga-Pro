@@ -26,7 +26,7 @@ export default function ProductDetailPage() {
   useEffect(() => {
     const fectProductById = async () => {
       const res = await productApi.getProductById(id);
-      setProduct(res.data);
+      setProduct(res.data.data);
       // console.log(res.data);
     };
     const fectReviewsProduct = async () => {
@@ -122,7 +122,7 @@ export default function ProductDetailPage() {
 
             <ReviewComponent
               product={product}
-              review={review}
+              reviews={review}
             />
 
             {/* Pagination */}

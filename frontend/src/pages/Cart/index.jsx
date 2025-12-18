@@ -10,7 +10,7 @@ export default function CartPage() {
     useCart();
   const [showCheckout, setShowCheckout] = useState(false);
 
-  const totalPrice = getTotalPrice();
+  const totalPrice = getTotalPrice() ?? 0;
   const shippingCost = items.length > 0 ? 50000 : 0;
   const finalTotal = totalPrice + shippingCost;
 
@@ -20,7 +20,7 @@ export default function CartPage() {
         <div className="bg-card border-b border-border p-4">
           <div className="max-w-7xl mx-auto flex items-center gap-2">
             <Link
-              href="/products"
+              to="/product"
               className="text-accent hover:text-accent/80 transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -58,7 +58,7 @@ export default function CartPage() {
       <div className="bg-card border-b border-border p-4">
         <div className="max-w-7xl mx-auto flex items-center gap-2">
           <Link
-            href="/products"
+            to="/product"
             className="text-accent hover:text-accent/80 transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -91,13 +91,13 @@ export default function CartPage() {
                   <div className="flex-1 flex flex-col justify-between">
                     <div>
                       <Link
-                        href={`/products/${item.id}`}
+                        to={`/product/${item.id}`}
                         className="text-foreground font-semibold hover:text-accent transition-colors"
                       >
                         {item.name}
                       </Link>
                       <p className="text-accent font-bold mt-1">
-                        {item.price.toLocaleString("vi-VN").slice(0, -3)}K
+                        {item.price?.toLocaleString("vi-VN").slice(0, -3)}K
                       </p>
                     </div>
 
@@ -154,7 +154,7 @@ export default function CartPage() {
 
             <button
               onClick={clearCart}
-              className="mt-4 text-sm text-destructive hover:text-destructive/80 transition-colors font-medium"
+              className="mt-4 text-sm text-destructive hover:text-destructive/80 transition-colors font-medium hover:cursor-pointer"
             >
               Xóa tất cả
             </button>
@@ -189,12 +189,12 @@ export default function CartPage() {
 
               <button
                 onClick={() => setShowCheckout(true)}
-                className="w-full bg-accent text-accent-foreground py-3 rounded-lg font-semibold hover:bg-accent/90 transition-colors mb-3"
+                className="w-full bg-accent text-accent-foreground py-3 rounded-lg font-semibold hover:bg-accent/90 transition-colors mb-3 hover:cursor-pointer"
               >
                 Thanh toán
               </button>
               <Link
-                href="/products"
+                to="/product"
                 className="w-full block text-center bg-secondary text-foreground py-3 rounded-lg font-semibold hover:bg-secondary/80 transition-colors"
               >
                 Tiếp tục mua

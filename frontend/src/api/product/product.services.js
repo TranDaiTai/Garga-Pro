@@ -1,16 +1,16 @@
-import api from "../api"
+import api from "../api";
 
-const PREFIX = "/api/product"
+const PREFIX = "/api/products";
 
 export const productApi = {
-    getProductAll:()=>{
-        return api.get(PREFIX)
-    },
-    getProductById:(id)=>{
-        return api.get(`${PREFIX}/${id}`)
-    },
-    getRelatedProduct:(productId) =>{
-        return  api.get(`${PREFIX}/${id}`)
-    }
-
-}
+  getProducts: async (queryString) => {
+    return api.get(`${PREFIX}/?${queryString}`);
+  },
+ 
+  getProductById: (id) => {
+    return api.get(`${PREFIX}/${id}`);
+  },
+  getRelatedProduct: (productId) => {
+    return api.get(`${PREFIX}/${id}`);
+  },
+};

@@ -21,4 +21,7 @@ export const CartApi = {
       quantity,
     });
   },
+  paySubmit : ()=>{
+    // return api.post
+  }
 };

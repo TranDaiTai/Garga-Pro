@@ -30,7 +30,7 @@ export function SortBar({
         <button
           key={option.value}
           onClick={() => onSortChange(option.value)}
-          className={`px-4 py-2 rounded transition-all whitespace-nowrap text-sm font-medium ${
+          className={`px-4 py-2 rounded transition-all whitespace-nowrap text-sm font-medium hover:cursor-pointer ${
             sortBy === option.value
               ? "bg-accent text-accent-foreground"
               : "bg-secondary text-foreground hover:bg-secondary/80"
@@ -42,7 +42,7 @@ export function SortBar({
 
       <div className="relative ml-auto">
         <button
-          className="px-4 py-2 rounded border border-border bg-background text-foreground hover:border-accent transition-all text-sm font-medium flex items-center gap-2 whitespace-nowrap"
+          className="px-4 py-2 rounded border border-border bg-background text-foreground hover:border-accent transition-all text-sm font-medium flex items-center gap-2 whitespace-nowrap hover:cursor-pointer"
           onClick={() => setVisiblePriceSort(!visiblePriceSort)}
         >
           Giá

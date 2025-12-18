@@ -3,7 +3,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 
-const cart = [];
+let cart = [];
 
 const authMiddleware = (req, res, next) => {
   const token = req.cookies.accessToken; // token name = 'token' trong set cookie
@@ -49,6 +49,7 @@ router.get("/", authMiddleware, (req, res) => {
   // const { user } = req.body;
   return res.json(cart);
 });
+
 router.post("/remove", authMiddleware, (req, res) => {
   const { productId } = req.body;
 

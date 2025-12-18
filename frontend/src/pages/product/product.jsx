@@ -1,17 +1,12 @@
-// import "@/pages/product/index.css";
-
-import { useState, useMemo, useEffect } from "react";
-import { ShoppingCart, Search, Star, ChevronDown } from "lucide-react";
-
+import { useState, useEffect } from "react";
+import { ShoppingCart } from "lucide-react"; // giữ các import cần
 import ShopContainer from "@/components/shopContainer/ShopContainer";
-// import { head } from "node_modules/axios/index.jsx";
-// import axios from "axios";
 import { productApi } from "@/api/product/product.services";
 
-const CATEGORIES = [];
-const PRICE_RANGES = [];
-const RATINGS = [];
-
+const CATEGORIES = []; // fill data thực tế, ví dụ: ['phone', 'laptop']
+const PRICE_RANGES = []; // ví dụ: [{label: 'Dưới 1tr', min: 0, max: 1000000}, ...]
+const RATINGS = []; // ví dụ: [1,2,3,4,5]
+const ITEMS_PER_PAGE = 8 
 const SORT_OPTIONS = [
   { value: "relevant", label: "Liên Quan" },
   { value: "newest", label: "Mới Nhất" },
@@ -23,22 +18,81 @@ const PRICE_SORT_OPTIONS = [
 ];
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState(null);
+  const [filters, setFilters] = useState({
+    search: "",
+    categories: [], // array string
+    priceRanges: [], // array {min, max}
+    ratings: [], // array number
+    hasDiscount: false,
+    sort: "relevant",
+    page: 1,
+  });
 
-  useEffect( () => {
+  const [productsData, setProductsData] = useState({
+    data: [],
+    pagination: { totalPages: 1, totalItems: 0, currentPage: 1 },
+    loading: false,
+    error: null,
+  });
+
+  useEffect(() => {
     const fetchProducts = async () => {
-      const res = await productApi.getProductAll();
-      setProducts(res.data);
+      setProductsData((prev) => ({ ...prev, loading: true, error: null }));
+
+      try {
+        const params = new URLSearchParams();
+        params.append("page", filters.page);
+        params.append("limit", ITEMS_PER_PAGE); // ITEMS_PER_PAGE của bạn
+
+        if (filters.search) params.append("search", filters.search);
+
+        filters.categories.forEach((cat) => params.append("category", cat));
+
+        // Price ranges: giả sử chỉ hỗ trợ 1 range, nếu nhiều thì tổng hợp min/max
+        if (filters.priceRanges.length > 0) {
+          const min = Math.min(...filters.priceRanges.map((r) => r.min));
+          const max = Math.max(...filters.priceRanges.map((r) => r.max));
+          params.append("minPrice", min);
+          params.append("maxPrice", max);
+        }
+
+        // Rating: lấy min rating từ selected
+        if (filters.ratings.length > 0) {
+          const minRating = Math.min(...filters.ratings);
+          params.append("rating", minRating);
+        }
+
+        if (filters.hasDiscount) params.append("hasDiscount", "true");
+
+        params.append("sort", filters.sort);
+
+        const res = await productApi.getProducts(params.toString());
+        // const res = await productApi.getProductAll();
+
+        setProductsData({
+          data: res.data.data,
+          pagination: res.data.pagination,
+          loading: false,
+          error: null,
+        });
+      } catch (err) {
+        setProductsData((prev) => ({
+          ...prev,
+          loading: false,
+          error: "Lỗi tải dữ liệu",
+        }));
+      }
     };
 
-    fetchProducts()
-    // console.log(ddsd);  
+    fetchProducts();
+  }, [filters]);
 
-  }, []);
+  const handleFilterChange = (changes) => {
+    setFilters((prev) => ({ ...prev, ...changes, page: 1 }));
+  };
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      {/* <Navbar /> */}
       <div className="products__header">
         <div className="products__container">
           <h1 className="products__title">Sản Phẩm</h1>
@@ -49,12 +103,17 @@ export default function ProductsPage() {
       </div>
 
       <ShopContainer
-        SAMPLE_PRODUCTS={products}
+        products={productsData.data}
+        pagination={productsData.pagination}
+        loading={productsData.loading}
+        error={productsData.error}
+        filters={filters}
+        onFilterChange={handleFilterChange}
         CATEGORIES={CATEGORIES}
         PRICE_RANGES={PRICE_RANGES}
         RATINGS={RATINGS}
-        PRICE_SORT_OPTIONS={PRICE_SORT_OPTIONS}
         SORT_OPTIONS={SORT_OPTIONS}
+        PRICE_SORT_OPTIONS={PRICE_SORT_OPTIONS}
       />
     </div>
   );
