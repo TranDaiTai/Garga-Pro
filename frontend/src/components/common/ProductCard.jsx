@@ -44,11 +44,11 @@ export default function ProductCard({ product }) {
             />
           ))}
           <span className="text-xs text-muted-foreground">
-            ({product.reviews})
+            ({product.reviewsCount})
           </span>
 
           <p className="text-xs text-muted-foreground ml-auto">
-            Đã bán: {Math.floor(product.sold / 100)}
+            Đã bán: {Math.floor(product.soldCount / 100)}
           </p>
         </div>
 
