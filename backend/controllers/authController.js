@@ -82,6 +82,15 @@ exports.refreshToken = async (req, res) => {
       { expiresIn: "15m" }
     );
 
+
+    // ddeer demo backend
+     res.cookie("accessToken", newAccessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // chỉ gửi qua HTTPS ở production
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ngày
+    });
+
     res.json({
       accessToken: newAccessToken,
       message: "Cấp lại access token thành công",

@@ -4,15 +4,14 @@ const jwt = require("jsonwebtoken");
 // Middleware bảo vệ route - kiểm tra access token
 exports.authMiddleware = (req, res, next) => {
   // Cách chuẩn: Lấy token từ header Authorization: Bearer <token>
-  const authHeader = req.headers.authorization;
+  const {accessToken} = req.cookies;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  if (!accessToken ) {
     return res.status(401).json({
       message: "Không có quyền truy cập. Vui lòng đăng nhập!",
     });
   }
 
-  const accessToken = authHeader.split(" ")[1]; // Lấy phần token sau "Bearer"
 
   // Verify token
   jwt.verify(accessToken, process.env.JWT_SECRET, (err, payload) => {

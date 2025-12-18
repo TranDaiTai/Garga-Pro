@@ -6,7 +6,7 @@ const {authMiddleware} = require('../middleware/middleware')
 
 router.post("/login",authController.login) ;
 
-router.post("/refresh",authMiddleware,authController.refreshToken) 
+router.post("/refresh",authController.refreshToken) 
 
 router.post("/logout",authMiddleware,authController.logout) 
 
