@@ -4,7 +4,7 @@ import { authApi } from '@/api/auth/auth.services';
 export async function protectedLoader({ request }) {
   try {
     const res = await authApi.verify(); // ✅ await để lấy dữ liệu
-    const user = res.data.user; // tùy backend trả gì
+    const user = res.data; // tùy backend trả gì
 
     if (!user) {
       const url = new URL(request.url);

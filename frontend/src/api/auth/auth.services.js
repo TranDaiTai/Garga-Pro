@@ -7,14 +7,32 @@ const PREFIX = "/api/auth";
 
 export const authApi = {
   
-  login: (email, password) => {
-    
-    return api.post(`${PREFIX}/login`, { email, password });
+  login:async  (username, password) => {
+    const res = await api.post(`${PREFIX}/login`, { username, password });
+
+     if (!res?.data.success) {
+      return res.message;
+    }
+
+    const { success, ...result } = res.data;
+    return result;
   },
-  verify: () => {
-    return api.get(`${PREFIX}/me`);
+  verify:async () => {
+    const res = await api.get(`${PREFIX}/verify`);
+     if (!res?.data.success) {
+      return res.message;
+    }
+
+    const { success, ...result } = res.data;
+    return result;
   },
-  logout: () => {
-    return api.post(`${PREFIX}/logout`);
+  logout: async() => {
+    const res = await api.post(`${PREFIX}/logout`);
+     if (!res?.data.success) {
+      return res.message;
+    }
+
+    const { success, ...result } = res.data;
+    return result;
   },
 };

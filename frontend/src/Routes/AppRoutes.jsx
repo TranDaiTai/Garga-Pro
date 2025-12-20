@@ -1,6 +1,6 @@
 // src/Routes/AppRoutes.jsx
 
-import { createBrowserRouter } from "react-router-dom";
+import { BrowserRouter, createBrowserRouter, Route } from "react-router-dom";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import Home from "@/pages/Home";
 import Booking from "@/pages/Booking";
@@ -14,6 +14,7 @@ import LoginPage from "@/pages/auth/login/Login";
 import { protectedLoader } from "./ProtectedRouter";
 import RegisterPage from "@/pages/auth/register";
 import ForgotPasswordPage from "@/pages/auth/forgot-password";
+
 
 export const router = createBrowserRouter([
   {

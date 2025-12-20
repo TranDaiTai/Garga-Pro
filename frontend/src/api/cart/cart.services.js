@@ -1,27 +1,60 @@
 import api from "../api";
 const PREFIX = "/api/cart";
 export const CartApi = {
-  addToCard: (product, quantity) => {
-    return api.post(`${PREFIX}/add`, {
-      product: product,
+  addToCard: async (productId, quantity) => {
+    const res = await api.post(`${PREFIX}/add`, {
+      productId: productId,
       quantity: quantity,
     });
+    if (!res?.data.success) {
+      return res.message;
+    }
+
+    const { success, ...result } = res.data;
+    return result;
   },
-  getCart: () => {
-    return api.get(`${PREFIX}/`);
+  getCart: async () => {
+    const res = await api.get(`${PREFIX}`);
+    if (!res?.data.success) {
+      return res.message;
+    }
+
+    const { success, ...result } = res.data;
+    return result;
   },
-  removeFromCart: (productId) => {
-    return api.post(`${PREFIX}/remove`, {
-      productId,
+  removeFromCart: async (productId) => {
+    const res = await api.post(`${PREFIX}/remove`, {
+      productId: productId,
     });
+    if (!res?.data.success) {
+      return res.message;
+    }
+
+    const { success, ...result } = res.data;
+    return result;
   },
-  updateQuantity: (productId, quantity) => {
-    return api.post(`${PREFIX}/update`, {
-      productId,
-      quantity,
+  updateQuantity: async (productId, quantity) => {
+    const res = await api.post(`${PREFIX}/update`, {
+      productId: productId,
+      quantity: quantity,
     });
+    if (!res?.data.success) {
+      return res.message;
+    }
+
+    const { success, ...result } = res.data;
+    return result;
   },
-  paySubmit : ()=>{
-    // return api.post
+  paySubmit: async () => {
+    // const res = await api.post
+  },
+  clearCart : async ()=>{
+      const res = await api.post(`${PREFIX}/clearcart`);
+    if (!res?.data.success) {
+      return res.message;
+    }
+
+    const { success, ...result } = res.data;
+    return result;
   }
 };

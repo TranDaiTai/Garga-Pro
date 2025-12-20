@@ -10,5 +10,6 @@ router.post("/refresh",authController.refreshToken)
 
 router.post("/logout",authMiddleware,authController.logout) 
 
+router.get('/verify',authController.verify)
 
 module.exports = router;

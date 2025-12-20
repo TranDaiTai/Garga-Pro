@@ -97,7 +97,7 @@ export default function ShopContainer({
             <>
               <div className="grid xl:grid-cols-4 lg:grid-cols-3 gap-4 mb-8">
                 {products.map((product) => (
-                  <ProductCard key={product._id} product={product} />
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
 

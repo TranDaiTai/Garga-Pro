@@ -9,7 +9,9 @@ exports.login = async (req, res) => {
 
     // Kiểm tra xem có gửi username và password không
     if (!username || !password) {
-      return res.status(400).json({ // 400 Bad Request hợp lý hơn 401 ở đây
+      return res.status(400).json({
+        // 400 Bad Request hợp lý hơn 401 ở đây
+        success: false,
         message: "Vui lòng nhập tài khoản và mật khẩu",
       });
     }
@@ -19,6 +21,7 @@ exports.login = async (req, res) => {
 
     if (!result?.user) {
       return res.status(401).json({
+        success: false,
         message: "Tài khoản hoặc mật khẩu không đúng",
       });
     }
@@ -39,67 +42,77 @@ exports.login = async (req, res) => {
     // Có thể lưu refreshToken vào httpOnly cookie để tăng bảo mật (khuyến nghị)
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // chỉ gửi qua HTTPS ở production
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ngày
     });
+    // ddeer demo backend
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 15 * 60 * 1000,
+    });
 
     res.json({
-      user: result.user,
-      accessToken,
+      success: true,
       message: "Đăng nhập thành công",
+      data: { userId: result.user.id, username: result.user.username },
     });
   } catch (err) {
     console.error(err);
     return res.status(500).json({
+      success: false,
       message: "Có lỗi xảy ra khi đăng nhập",
     });
   }
 };
-
 // Refresh token - cấp lại access token mới
 exports.refreshToken = async (req, res) => {
   // Lấy refreshToken từ cookie (an toàn hơn lấy từ body)
-  const refreshToken = req.cookies.refreshToken;
-
-  if (!refreshToken) {
-    return res.status(401).json({
-      message: "Không tìm thấy refresh token",
-    });
-  }
-
-  jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, payload) => {
-    if (err) {
+  try{
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) {
       return res.status(401).json({
-        message: "Refresh token không hợp lệ hoặc đã hết hạn",
+        success: false,
+        message: "Không tìm thấy refresh token",
       });
     }
-
-    // Tạo access token mới từ payload của refresh token
-    const newAccessToken = jwt.sign(
-      { userId: payload.userId },
-      process.env.JWT_SECRET,
-      { expiresIn: "15m" }
-    );
-
-
-    // ddeer demo backend
-     res.cookie("accessToken", newAccessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // chỉ gửi qua HTTPS ở production
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ngày
+  
+    jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, payload) => {
+      if (err) {
+        return res.status(401).json({
+          success: false,
+          message: "Refresh token không hợp lệ hoặc đã hết hạn",
+        });
+      }
+      const {userId, username} = payload
+      // Tạo access token mới từ payload của refresh token
+      const newAccessToken = jwt.sign({userId,username}, process.env.JWT_SECRET, {
+        expiresIn: "15m",
+      });
+  
+      // ddeer demo backend
+      res.cookie("accessToken", newAccessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // chỉ gửi qua HTTPS ở production
+        sameSite: "strict",
+        maxAge: 15 * 60 * 1000, //
+      });
+  
+      res.json({
+        success: true,
+        message: "Cấp lại access token thành công",
+      });
     });
-
-    res.json({
-      accessToken: newAccessToken,
-      message: "Cấp lại access token thành công",
-    });
-  });
+  }catch(err) {
+    console.log(err)
+    return res.json({
+      success: false , 
+     message: ' token hett hanj '
+    })
+  }
 };
-
 // Đăng xuất
-exports.logout =async (req, res) => {
+exports.logout = async (req, res) => {
   // Cách đơn giản nhất phía server: xóa cookie refreshToken
   // (Access token sẽ tự hết hạn nhờ expiresIn ngắn)
   res.clearCookie("refreshToken", {
@@ -107,8 +120,33 @@ exports.logout =async (req, res) => {
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
   });
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
 
   return res.json({
+    success: true,
     message: "Đăng xuất thành công",
+  });
+};
+exports.verify = (rep, res) => {
+  const { accessToken } = rep.cookies;
+  if (!accessToken)
+    return res.status(401).json({
+      success: false,
+      message: "chua dang nhap",
+    });
+  jwt.verify(accessToken, process.env.JWT_SECRET, (err, payload) => {
+    if (err)
+      return res.status(400).json({
+        success: false,
+        message: " invalid token",
+      });
+    return res.json({
+      success: true,
+      data: payload.userId,
+    });
   });
 };

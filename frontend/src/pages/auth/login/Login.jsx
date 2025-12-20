@@ -1,59 +1,37 @@
-"use client"
+"use client";
 
-import React from "react"
-import { useState, useContext } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import React from "react";
+import { useState, useContext } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { authApi } from "@/api/auth/auth.services"
-import { AuthContext } from "@/context/AuthContext"
 
-import "./index.css"
-
+import "./index.css";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("trandaitai2005@gmail.com")
-  const [password, setPassword] = useState("123456789")
-  const [error, setError] = useState("")   // thêm state lỗi
-  const { setUser, isLoading } = useContext(AuthContext);
-
-
-  // const router = useRouter()  // nếu dùng Next.js
-  const navigate = useNavigate() // nếu dùng React Router
-  
-
+  const [email, setEmail] = useState("trandaitai2005@gmail.com");
+  const [password, setPassword] = useState("123456789");
+  const { user, isLoading, login, error } = useAuth();
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
-    e.preventDefault()
-    setError("")
-
-    try {
-      const response =  
-      await authApi.login(
-        email,
-        password
-      );
-      // alert(`Chào ${response.data.user.name}! Đăng nhập thành công`)
-        //  login(response.data.user, response.data.accessToken);
-      if ( response.data.user){
-        setUser(response.data.user)
-      }
-      // Chuyển hướng sau khi login thành công
-      navigate('/')
-
-    } catch (err) {
-      const msg = err.response?.data?.message || 'Đăng nhập thất bại, thử lại!'
-      setError(msg)
-      console.error(err)
-    } finally {
-    }
+    e.preventDefault();
+    login(email, password);
+  };
+  if (user) {
+    navigate("/");
   }
 
   return (
     <div className="login-page">
-
-
       <Card className="login-card">
         <CardHeader className="card-header">
           <CardTitle className="card-title">Welcome Back</CardTitle>
@@ -64,10 +42,10 @@ export default function LoginPage() {
 
         <CardContent className="card-content">
           {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
-            {error}
-          </div>
-        )}
+            <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
+              {error}
+            </div>
+          )}
           <form onSubmit={handleLogin} className="login-form">
             <div className="form-group">
               <Label htmlFor="email" className="form-label">
@@ -103,7 +81,6 @@ export default function LoginPage() {
               type="submit"
               className="w-full ripple-effect hover-lift font-sans font-bold py-5 transition-all duration-300"
               style={{ backgroundColor: "var(--accent)", color: "white" }}
-
               disabled={isLoading}
             >
               {isLoading ? "Signing In..." : "Sign In"}
@@ -148,7 +125,11 @@ export default function LoginPage() {
               onClick={() => handleSocialLogin("Apple")}
               className="social-btn apple-btn"
             >
-              <svg className="btn-icon" viewBox="0 0 384 512" fill="currentColor">
+              <svg
+                className="btn-icon"
+                viewBox="0 0 384 512"
+                fill="currentColor"
+              >
                 <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
               </svg>
               Continue with Apple
@@ -167,15 +148,12 @@ export default function LoginPage() {
           </div>
 
           <div className="forgot-password">
-            <a
-              href="/forgot-password"
-              className="forgot-link"
-            >
+            <a href="/forgot-password" className="forgot-link">
               Forgot your password?
             </a>
           </div>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

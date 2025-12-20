@@ -1,6 +1,5 @@
 import { Star, ShoppingCart, Heart, User } from "lucide-react";
 import { useState } from "react";
-import { CartApi } from "@/api/cart/cart.services";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
@@ -47,7 +46,7 @@ const handleAddToCart = async () => {
     <div className="space-y-6">
       <div>
         <p className="text-sm text-accent font-bold uppercase tracking-wider">
-          {product.category}
+          {product.category?.name}
         </p>
         <h1 className="text-4xl font-bold text-foreground mt-2">
           {product.name}
@@ -68,7 +67,7 @@ const handleAddToCart = async () => {
           ))}
         </div>
         <span className="text-foreground font-medium">
-          {product.rating} ({product.reviews} đánh giá)
+          {product.rating} ({product.reviewsCount} đánh giá)
         </span>
         <span className="text-muted-foreground">| Đã bán {product.sold}+</span>
       </div>

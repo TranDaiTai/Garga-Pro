@@ -1,8 +1,4 @@
-// /services/productService.js
-
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
-
+const prisma = require("../src/lib/prisma");
 
 /**
  * Lấy danh sách sản phẩm với bộ lọc, phân trang và sắp xếp
@@ -131,7 +127,7 @@ exports.getProducts = async ({
  */
 exports.getProductById = async (id) => {
   const productId = parseInt(id);
-  if (isNaN(productId)) return null;
+  if (isNaN(productId)) throw new Error('productId must be fill');
 
   return await prisma.product.findUnique({
     where: { id: productId },
@@ -143,9 +139,9 @@ exports.getProductById = async (id) => {
       reviews: {
         include: {
           images: true,
-          user: {
-            select: { fullName: true, avatar: true }, // nếu có avatar
-          },
+          // user: {
+          //   select: { fullName: true }, // nếu có avatar
+          // },
         },
         orderBy: { reviewDate: 'desc' },
       },

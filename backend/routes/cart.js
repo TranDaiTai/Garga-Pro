@@ -10,4 +10,5 @@ router.get("/", authMiddleware.authMiddleware, cartController.getCart)
 router.post("/remove", authMiddleware.authMiddleware,cartController.removeFromCart) 
 
 router.post("/update", authMiddleware.authMiddleware, cartController.updateCartItem)
+router.post('/clearcart', authMiddleware.authMiddleware,cartController.clearCart)
 module.exports = router;

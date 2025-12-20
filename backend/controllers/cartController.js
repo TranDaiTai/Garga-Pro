@@ -25,14 +25,12 @@ exports.getCart = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      ...result, // cart, pagination, message
+      data: { ...result }, // cart, pagination, message
     });
   } catch (err) {
     console.error("Error in getCart controller:", err);
     return res.status(500).json({
       success: false,
-      cart: null,
-      pagination: null,
       message: "Có lỗi xảy ra khi lấy giỏ hàng",
     });
   }
@@ -65,7 +63,7 @@ exports.addToCart = async (req, res) => {
       quantity: Number(quantity),
     });
 
-    return res.status(result.success ? 200 : 400).json(result);
+    return res.json({ success: true, data: { ...result } });
   } catch (err) {
     console.error("Error in addToCart controller:", err);
     return res.status(500).json({
@@ -88,10 +86,9 @@ exports.updateCartItem = async (req, res) => {
       });
     }
 
-    const { cartItemId } = req.params; // hoặc req.body tùy route design
-    const { quantity } = req.body;
+    const { productId, quantity } = req.body;
 
-    if (!cartItemId || quantity === undefined || quantity < 1) {
+    if (quantity === undefined || quantity < 1) {
       return res.status(400).json({
         success: false,
         message: "Thiếu thông tin hoặc số lượng không hợp lệ",
@@ -99,11 +96,11 @@ exports.updateCartItem = async (req, res) => {
     }
 
     const result = await cartService.updateCartItem(user.userId, {
-      cartItemId: Number(cartItemId),
+      productId: Number(productId),
       quantity: Number(quantity),
     });
 
-    return res.status(result.success ? 200 : 400).json(result);
+    return res.json({ success: true, data: { ...result } });
   } catch (err) {
     console.error("Error in updateCartItem controller:", err);
     return res.status(500).json({
@@ -126,20 +123,21 @@ exports.removeFromCart = async (req, res) => {
       });
     }
 
-    const { cartItemId } = req.params;
+    const { productId } = req.body;
 
-    if (!cartItemId) {
+    if (!productId) {
       return res.status(400).json({
         success: false,
-        message: "Thiếu cartItemId",
+        message: "Thiếu productId",
       });
     }
 
-    const result = await cartService.removeFromCart(user.userId, {
-      cartItemId: Number(cartItemId),
-    });
+    const result = await cartService.removeFromCart(
+      user.userId,
+      Number(productId)
+    );
 
-    return res.status(result.success ? 200 : 400).json(result);
+    return res.json({ success: true, data: { ...result } });
   } catch (err) {
     console.error("Error in removeFromCart controller:", err);
     return res.status(500).json({

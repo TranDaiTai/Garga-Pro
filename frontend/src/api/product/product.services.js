@@ -4,13 +4,31 @@ const PREFIX = "/api/products";
 
 export const productApi = {
   getProducts: async (queryString) => {
-    return api.get(`${PREFIX}/?${queryString}`);
+    const res = await api.get(`${PREFIX}/?${queryString}`);
+    if (!res?.data.success) {
+      return res.message;
+    }
+    
+    const {success, ...result} = res.data
+    return result;
   },
- 
-  getProductById: (id) => {
-    return api.get(`${PREFIX}/${id}`);
+
+  getProductById: async (id) => {
+    const res = await api.get(`${PREFIX}/${id}`);
+    if (!res?.data.success) {
+      return res.message;
+    }
+    
+    const {success, ...result} = res.data
+    return result;
   },
-  getRelatedProduct: (productId) => {
-    return api.get(`${PREFIX}/${id}`);
+  getRelatedProduct: async (productId) => {
+    const res = await api.get(`${PREFIX}/${id}`);
+    if (!res?.data.success) {
+      return res.message;
+    }
+    
+    const {success, ...result} = res.data
+    return result;
   },
 };

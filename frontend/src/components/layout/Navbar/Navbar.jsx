@@ -1,19 +1,18 @@
 "use client"
 
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Menu, X, Wrench, ChevronDown, LogOut, User } from "lucide-react"
-import { AuthContext } from "@/context/AuthContext"
+import {  useAuth } from "@/context/AuthContext"
 import { UserProfileDesktop, UserProfileMobile } from "@/components/common/userAvatar"
 import "./navbar.css"
 import CartHeader from "./cartHeader"
-import { authApi } from "@/api/auth/auth.services"
 
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
-  const {user, setUser , isLoading} = useContext(AuthContext)
+  const {user , isLoading, logout} = useAuth(); 
 
   const navLinks = [
     { href: "/services", label: "Dịch Vụ" },
@@ -24,10 +23,9 @@ export default function Navbar() {
   ]
 
   const handleLogout = () => {
-    authApi.logout();
-    setUser(null) ; 
+   logout()
     setIsProfileOpen(false)
-    setIsOpen(false)
+    setIsOpen(false)  
   }
   if ( isLoading ) {
     return (
@@ -42,7 +40,7 @@ export default function Navbar() {
         <div className="navbar__content">
 
           {/* Logo */}
-          <a href="/" className="navbar__logo">
+          <Link to="/" className="navbar__logo">
             <div className="navbar__logo-wrapper">
               <div className="navbar__logo-icon">
                 <Wrench className="navbar__logo-icon-svg" />
@@ -52,15 +50,15 @@ export default function Navbar() {
                 <span className="navbar__logo-subtitle">Garage Chuyên Nghiệp</span>
               </div>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Links */}
           <div className="navbar__links">
             {navLinks.map((link) => (
-              <a key={link.label} href={link.href} className="navbar__link">
+              <Link key={link.label} to={link.href} className="navbar__link">
                 {link.label}
                 <span className="navbar__link-underline" />
-              </a>
+              </Link>
             ))}
           </div>
 

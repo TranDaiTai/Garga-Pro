@@ -70,7 +70,7 @@ export default function ProductsPage() {
         // const res = await productApi.getProductAll();
 
         setProductsData({
-          data: res.data.data,
+          data: res.data.product,
           pagination: res.data.pagination,
           loading: false,
           error: null,

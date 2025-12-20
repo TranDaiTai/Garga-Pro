@@ -8,97 +8,70 @@ const CartContext = createContext(null);
 
 export function CartProvider({ children }) {
   const [items, setItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth(); // lấy user từ AuthContext
 
+  const loadCart = async () => {
+    setIsLoading(true);
+    if (user) {
+      // Đã đăng nhập → lấy từ backend
+      try {
+        const res = await CartApi.getCart(); // API lấy giỏ hàng từ server
+        setItems(res.data.items);
+        setTotalPrice(res.data.totalAmount);
+      } catch (err) {
+        console.error("Load cart failed", err);
+      }
+    } else {
+    }
+    setIsLoading(false);
+  };
+
   // Load giỏ hàng khi mount hoặc khi user thay đổi (login/logout)
   useEffect(() => {
-    const loadCart = async () => {
-      setIsLoading(true);
-      if (user) {
-        // Đã đăng nhập → lấy từ backend
-        try {
-          const res = await CartApi.getCart(); // API lấy giỏ hàng từ server
-          setItems(res.data);
-        } catch (err) {
-          console.error("Load cart failed", err);
-        }
-      } else {
-      }
-      setIsLoading(false);
-    };
-
     loadCart();
   }, [user]); // Chạy lại khi user login/logout
 
   // Các hàm thao tác giỏ hàng
-  const addItem = (product, quantity = 1) => {
-    setItems((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
-      if (existing) {
-        return prev.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      }
-      return [...prev, {... product, quantity }];
-    });
-
+  const addItem = async (product, quantity = 1) => {
     // Nếu đã login → gọi API đồng bộ lên server
     if (user) {
-      CartApi.addToCard(product, quantity).catch(console.error);
+      await CartApi.addToCard(product.id, quantity).catch(console.error);
+      loadCart();
     }
   };
 
-  const removeItem = (productId) => {
-    setItems((prev) => prev.filter((item) => item.id !== productId));
-
+  const removeItem = async (productId) => {
     if (user) {
-      CartApi.removeFromCart(productId).catch(console.error);
+      await CartApi.removeFromCart(productId).catch(console.error);
+      loadCart();
     }
   };
 
-  const updateQuantity = (productId, quantity) => {
-    if (quantity <= 0) {
-      removeItem(productId);
-      return;
-    }
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
-      )
-    );
-
+  const updateQuantity = async (productId, quantity) => {
     if (user) {
-      CartApi.updateQuantity(productId, quantity).catch(console.error);
+      await CartApi.updateQuantity(productId, quantity).catch(console.error);
+      loadCart();
     }
   };
 
-  const clearCart = () => {
+  const clearCart = async () => {
     setItems([]);
     if (user) {
-      CartApi.clearCart().catch(console.error);
+      await CartApi.clearCart().catch(console.error);
+      loadCart();
     }
   };
-  const paySubmit = () =>{
-    if (user ) {
-      CartApi.paySubmit(); 
+  const paySubmit = () => {
+    if (user) {
+      CartApi.paySubmit();
     }
-
-  }
-
- const getTotalPrice = () => {
-  if (!Array.isArray(items)) return 0;
-
-  return items.reduce(
-    (total, item) => total + (item.price || 0) * (item.quantity || 0),
-    0
-  );
-};
-
+  };
 
   const getTotalItems = () => {
+    if (!Array.isArray(items)) return 0;
+
     return items.reduce((total, item) => total + item.quantity, 0);
   };
 
@@ -107,11 +80,11 @@ export function CartProvider({ children }) {
       value={{
         items,
         isLoading,
+        totalPrice,
         addItem,
         removeItem,
         updateQuantity,
         clearCart,
-        getTotalPrice,
         getTotalItems,
       }}
     >
