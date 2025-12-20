@@ -1,4 +1,5 @@
 import { Menu, X, Wrench, ChevronDown, LogOut, User } from "lucide-react"
+import { Link } from "react-router-dom";
 
 
 export  function UserAvatar({ name, size = "normal" }) {
@@ -25,14 +26,14 @@ export  function UserProfileDesktop({ user, isOpen, onToggle, onLogout }) {
 
       {isOpen && (
         <div className="navbar__dropdown">
-          <a href="/profile" className="navbar__dropdown-item">
+          <Link to="/profile" className="navbar__dropdown-item">
             <User className="navbar__dropdown-icon" />
             Tài khoản của tôi
-          </a>
-          <a href="/bookings" className="navbar__dropdown-item">
+          </Link>
+          <Link to="/bookings" className="navbar__dropdown-item">
             <Wrench className="navbar__dropdown-icon" />
             Đơn hàng
-          </a>
+          </Link>
           <div className="navbar__dropdown-divider"></div>
           <button
             onClick={onLogout}
@@ -59,14 +60,14 @@ export  function UserProfileMobile({ user, onLogout }) {
           </div>
         </div>
 
-        <a href="/profile" className="navbar__mobile-profile-link">
+        <Link to="/profile" className="navbar__mobile-profile-link">
           <User className="w-4 h-4" />
           Tài khoản
-        </a>
-        <a href="/bookings" className="navbar__mobile-profile-link">
+        </Link>
+        <Link to="/bookings" className="navbar__mobile-profile-link">
           <Wrench className="w-4 h-4" />
             Đơn hàng
-        </a>
+        </Link>
       </div>
 
       <button onClick={onLogout} className="navbar__button-logout-full">

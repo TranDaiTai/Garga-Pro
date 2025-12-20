@@ -1,12 +1,23 @@
 import { useState, useEffect } from "react";
-import { ShoppingCart } from "lucide-react"; // giữ các import cần
 import ShopContainer from "@/components/shopContainer/ShopContainer";
 import { productApi } from "@/api/product/product.services";
 
 const CATEGORIES = []; // fill data thực tế, ví dụ: ['phone', 'laptop']
-const PRICE_RANGES = []; // ví dụ: [{label: 'Dưới 1tr', min: 0, max: 1000000}, ...]
-const RATINGS = []; // ví dụ: [1,2,3,4,5]
-const ITEMS_PER_PAGE = 8 
+const PRICE_RANGES = [
+  { label: "Dưới 500.000đ", min: 0, max: 500000 },
+  { label: "500.000đ - 1.000.000đ", min: 500000, max: 1000000 },
+  { label: "1.000.000đ - 2.000.000đ", min: 1000000, max: 2000000 },
+  { label: "2.000.000đ -5.000.000đ", min: 2000000, max: 5000000 },
+  { label: "Trên 5.000.000đ", min: 5000000, max: Infinity }, // backend xử lý max = null hoặc rất lớn
+];
+const RATINGS = [
+  { value: 5, label: "5 sao" },
+  { value: 4, label: "4 sao trở lên" },
+  { value: 3, label: "3 sao trở lên" },
+  { value: 2, label: "2 sao trở lên" },
+  { value: 1, label: "1 sao trở lên" },
+];
+const ITEMS_PER_PAGE = 8;
 const SORT_OPTIONS = [
   { value: "relevant", label: "Liên Quan" },
   { value: "newest", label: "Mới Nhất" },
@@ -49,11 +60,25 @@ export default function ProductsPage() {
         filters.categories.forEach((cat) => params.append("category", cat));
 
         // Price ranges: giả sử chỉ hỗ trợ 1 range, nếu nhiều thì tổng hợp min/max
+        // Trong useEffect fetchProducts
         if (filters.priceRanges.length > 0) {
-          const min = Math.min(...filters.priceRanges.map((r) => r.min));
-          const max = Math.max(...filters.priceRanges.map((r) => r.max));
+          const selectedRanges = filters.priceRanges;
+
+          // Tìm min nhỏ nhất
+          const min = Math.min(...selectedRanges.map((r) => r.min));
+
+          // Tìm max lớn nhất, nhưng nếu có range nào max = Infinity → KHÔNG gửi maxPrice
+          const hasUnlimitedMax = selectedRanges.some(
+            (r) => r.max === Infinity || r.max === null || r.max === undefined
+          );
+
           params.append("minPrice", min);
-          params.append("maxPrice", max);
+
+          if (!hasUnlimitedMax) {
+            const max = Math.max(...selectedRanges.map((r) => r.max));
+            params.append("maxPrice", max);
+          }
+          // Nếu hasUnlimitedMax → chỉ gửi minPrice, backend hiểu là >= min
         }
 
         // Rating: lấy min rating từ selected
@@ -88,7 +113,7 @@ export default function ProductsPage() {
   }, [filters]);
 
   const handleFilterChange = (changes) => {
-    setFilters((prev) => ({ ...prev, ...changes, page: 1 }));
+    setFilters((prev) => ({ ...prev, ...changes }));
   };
 
   return (

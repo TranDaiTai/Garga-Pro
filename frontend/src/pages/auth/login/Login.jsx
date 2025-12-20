@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAuth } from "@/context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./index.css";
 
@@ -148,9 +148,9 @@ export default function LoginPage() {
           </div>
 
           <div className="forgot-password">
-            <a href="/forgot-password" className="forgot-link">
+            <Link to="/forgot-password" className="forgot-link">
               Forgot your password?
-            </a>
+            </Link>
           </div>
         </CardContent>
       </Card>

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { CartEmpty } from "@/components/common/CartEmpty";
 import { CartItem } from "@/components/common/CartItem";
@@ -22,16 +21,7 @@ export default function CartPage() {
     />
     );
   }
-  if ( isLoading ) {
-    return (
-      <>
-      <Breadcrumb/> 
-      <p>
-        dang tai 
-      </p>
-      </>
-    )
-  }
+ 
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}

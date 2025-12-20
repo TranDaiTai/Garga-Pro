@@ -1,55 +1,79 @@
-"use client"
+"use client";
 
-import { ChevronDown } from "lucide-react"
-import { useState } from "react"
-
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 export function FilterSidebar({
-  selectedCategories,
-  selectedPriceRanges,
-  selectedRatings,
+  selectedCategories,      // array string: ["Phụ tùng", "Dầu nhớt"]
+  selectedPriceRanges,     // array object: [{ min: 0, max: 500000 }, ...]
+  selectedRatings,         // array number: [5, 4]
   hasDiscount,
-  onToggleCategory,
-  onTogglePriceRange,
-  onToggleRating,
+  onToggleCategory,        // truyền category.name (string)
+  onTogglePriceRange,      // truyền range object { min, max, label }
+  onToggleRating,          // truyền rating number
   onToggleDiscount,
-  CATEGORIES,PRICE_RANGES,
-  RATINGS,
+  CATEGORIES = [],         // [{ id, name }]
+  PRICE_RANGES = [],       // [{ label, min, max }]
+  RATINGS = [],            // [5,4,3,2,1] hoặc [{ value: 5, label: "5 sao" }, ...]
 }) {
   const [expandedFilters, setExpandedFilters] = useState({
     category: true,
     price: true,
     rating: true,
     discount: true,
-  })
+  });
 
   const toggleFilter = (filterName) => {
-    setExpandedFilters((prev) => ({ ...prev, [filterName]: !prev[filterName] }))
-  }
+    setExpandedFilters((prev) => ({
+      ...prev,
+      [filterName]: !prev[filterName],
+    }));
+  };
+
+  // Helper: Kiểm tra price range đã chọn chưa (so sánh min + max)
+  const isPriceRangeSelected = (range) => {
+    return selectedPriceRanges.some(
+      (r) => r.min === range.min && r.max === range.max
+    );
+  };
+
+  // Helper: Kiểm tra rating đã chọn chưa
+  const isRatingSelected = (ratingValue) => {
+    return selectedRatings.includes(ratingValue);
+  };
 
   return (
-    <div className="w-56 flex-shrink-0">
-      <div className="space-y-4">
+    <div className="w-64 flex-shrink-0">
+      <div className="space-y-6">
+
         {/* Category Filter */}
-        <div className="border border-border rounded-lg p-4">
+        <div className="border border-border rounded-lg p-4 bg-card">
           <button
             onClick={() => toggleFilter("category")}
             className="w-full flex items-center justify-between font-semibold text-foreground hover:text-accent transition-colors"
           >
             Danh mục
-            <ChevronDown className={`w-4 h-4 transition-transform ${expandedFilters.category ? "rotate-180" : ""}`} />
+            <ChevronDown
+              className={`w-5 h-5 transition-transform duration-200 ${
+                expandedFilters.category ? "rotate-180" : ""
+              }`}
+            />
           </button>
+
           {expandedFilters.category && (
-            <div className="mt-3 space-y-2">
+            <div className="mt-4 space-y-3">
               {CATEGORIES.map((category) => (
-                <label key={category} className="flex items-center gap-2 cursor-pointer text-sm">
+                <label
+                  key={category.id}
+                  className="flex items-center gap-3 cursor-pointer text-sm text-foreground hover:text-accent transition-colors"
+                >
                   <input
                     type="checkbox"
-                    checked={selectedCategories.includes(category)}
-                    onChange={() => onToggleCategory(category)}
-                    className="w-4 h-4 rounded border-border accent-accent"
+                    checked={selectedCategories.includes(category.name)}
+                    onChange={() => onToggleCategory(category.name)}
+                    className="w-4 h-4 rounded border-border text-accent focus:ring-accent"
                   />
-                  <span className="text-foreground hover:text-accent transition-colors">{category}</span>
+                  <span>{category.name}</span>
                 </label>
               ))}
             </div>
@@ -57,25 +81,33 @@ export function FilterSidebar({
         </div>
 
         {/* Price Range Filter */}
-        <div className="border border-border rounded-lg p-4">
+        <div className="border border-border rounded-lg p-4 bg-card">
           <button
             onClick={() => toggleFilter("price")}
             className="w-full flex items-center justify-between font-semibold text-foreground hover:text-accent transition-colors"
           >
             Khoảng giá
-            <ChevronDown className={`w-4 h-4 transition-transform ${expandedFilters.price ? "rotate-180" : ""}`} />
+            <ChevronDown
+              className={`w-5 h-5 transition-transform duration-200 ${
+                expandedFilters.price ? "rotate-180" : ""
+              }`}
+            />
           </button>
+
           {expandedFilters.price && (
-            <div className="mt-3 space-y-2">
-              {PRICE_RANGES.map((range, index) => (
-                <label key={index} className="flex items-center gap-2 cursor-pointer text-sm">
+            <div className="mt-4 space-y-3">
+              {PRICE_RANGES.map((range) => (
+                <label
+                  key={`${range.min}-${range.max}`} // key ổn định
+                  className="flex items-center gap-3 cursor-pointer text-sm text-foreground hover:text-accent transition-colors"
+                >
                   <input
                     type="checkbox"
-                    checked={selectedPriceRanges.includes(index)}
-                    onChange={() => onTogglePriceRange(index)}
-                    className="w-4 h-4 rounded border-border accent-accent"
+                    checked={isPriceRangeSelected(range)}
+                    onChange={() => onTogglePriceRange(range)}
+                    className="w-4 h-4 rounded border-border text-accent focus:ring-accent"
                   />
-                  <span className="text-foreground hover:text-accent transition-colors">{range.label}</span>
+                  <span>{range.label}</span>
                 </label>
               ))}
             </div>
@@ -83,44 +115,57 @@ export function FilterSidebar({
         </div>
 
         {/* Rating Filter */}
-        <div className="border border-border rounded-lg p-4">
+        <div className="border border-border rounded-lg p-4 bg-card">
           <button
             onClick={() => toggleFilter("rating")}
             className="w-full flex items-center justify-between font-semibold text-foreground hover:text-accent transition-colors"
           >
             Đánh giá
-            <ChevronDown className={`w-4 h-4 transition-transform ${expandedFilters.rating ? "rotate-180" : ""}`} />
+            <ChevronDown
+              className={`w-5 h-5 transition-transform duration-200 ${
+                expandedFilters.rating ? "rotate-180" : ""
+              }`}
+            />
           </button>
+
           {expandedFilters.rating && (
-            <div className="mt-3 space-y-2">
-              {RATINGS.map((rating, index) => (
-                <label key={index} className="flex items-center gap-2 cursor-pointer text-sm">
-                  <input
-                    type="checkbox"
-                    checked={selectedRatings.includes(index)}
-                    onChange={() => onToggleRating(index)}
-                    className="w-4 h-4 rounded border-border accent-accent"
-                  />
-                  <span className="text-foreground hover:text-accent transition-colors">{rating.label}</span>
-                </label>
-              ))}
+            <div className="mt-4 space-y-3">
+              {RATINGS.map((rating) => {
+                const value = typeof rating === "object" ? rating.value : rating;
+                const label = typeof rating === "object" ? rating.label : `${rating} sao trở lên`;
+
+                return (
+                  <label
+                    key={value}
+                    className="flex items-center gap-3 cursor-pointer text-sm text-foreground hover:text-accent transition-colors"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isRatingSelected(value)}
+                      onChange={() => onToggleRating(value)}
+                      className="w-4 h-4 rounded border-border text-accent focus:ring-accent"
+                    />
+                    <span>{label}</span>
+                  </label>
+                );
+              })}
             </div>
           )}
         </div>
 
         {/* Discount Filter */}
-        <div className="border border-border rounded-lg p-4">
-          <label className="flex items-center gap-2 cursor-pointer font-semibold text-foreground">
+        <div className="border border-border rounded-lg p-4 bg-card">
+          <label className="flex items-center gap-3 cursor-pointer font-semibold text-foreground hover:text-accent transition-colors">
             <input
               type="checkbox"
               checked={hasDiscount}
               onChange={(e) => onToggleDiscount(e.target.checked)}
-              className="w-4 h-4 rounded border-border accent-accent"
+              className="w-4 h-4 rounded border-border text-accent focus:ring-accent"
             />
-            <span className="hover:text-accent transition-colors">Có khuyến mãi</span>
+            <span>Có khuyến mãi</span>
           </label>
         </div>
       </div>
     </div>
-  )
+  );
 }
