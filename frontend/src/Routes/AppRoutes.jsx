@@ -1,7 +1,7 @@
 // src/Routes/AppRoutes.jsx
 
 import { BrowserRouter, createBrowserRouter, Route } from "react-router-dom";
-import DefaultLayout from "@/components/layout/DefaultLayout";
+import DefaultLayout, { DefaultLayoutWithoutFooter } from "@/components/layout/DefaultLayout";
 import Home from "@/pages/Home";
 import Booking from "@/pages/Booking";
 import Services from "@/pages/services";
@@ -14,11 +14,13 @@ import LoginPage from "@/pages/auth/login/Login";
 import { protectedLoader } from "./ProtectedRouter";
 import RegisterPage from "@/pages/auth/register";
 import ForgotPasswordPage from "@/pages/auth/forgot-password";
+import ProfilePage from "@/pages/auth/profile/profile";
 
 
 export const router = createBrowserRouter([
   {
     element: <DefaultLayout />,
+    path: "/",
     children: [
       // Public routes
       { index: true, element: <Home /> },
@@ -43,4 +45,16 @@ export const router = createBrowserRouter([
       { path: "*", element: <NotFound /> },
     ],
   },
+  {
+    element: <DefaultLayoutWithoutFooter />,
+    children: [
+      {
+        index: true, 
+        element: <ProfilePage />,
+      }
+    ],
+    path: "profile/*",
+
+    
+  }
 ]);
