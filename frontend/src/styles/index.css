@@ -34,6 +34,13 @@
   --muted-foreground: oklch(0.556 0 0);
   /* Updated --accent to orange (#EA580C equivalent in oklch) */
   --accent: oklch(0.586 0.199 29.23);
+  --accent-50: oklch(0.98 0.05 29.23);
+  --accent-100: oklch(0.95 0.1 29.23);
+  --accent-500: oklch(0.65 0.225 29.23);
+  --accent-600: oklch(0.586 0.199 29.23); 
+  --accent-700: oklch(0.514 0.174 29.23); 
+  --accent-800: oklch(0.448 0.157 29.23);
+  --accent-900: oklch(0.318 0.117 29.23);
   --accent-dark: oklch(0.55 0.24 41.116);
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -71,6 +78,7 @@
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
   /* Updated --accent for dark mode to bright orange */
+  
   --accent: oklch(0.65 0.225 29.23);
   --accent-dark: oklch(0.62 0.25 41.116);
   --accent-foreground: oklch(0.145 0 0);

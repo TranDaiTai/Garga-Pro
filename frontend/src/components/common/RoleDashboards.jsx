@@ -1,35 +1,78 @@
-import React from 'react';
-import { 
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, BarChart, Bar 
-} from 'recharts';
-import { 
-  Car, Clock, CheckCircle2, AlertCircle, ShoppingCart, DollarSign, 
-  MapPin, Phone, Mail, Edit3, Camera, Users
-} from 'lucide-react';
-import { Card, Badge, Button } from '@/components/common/UI';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as RechartsTooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+} from "recharts"
+import {
+  Car,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
+  ShoppingCart,
+  DollarSign,
+  MapPin,
+  Phone,
+  Edit3,
+  Camera,
+  Users,
+  BarChart3,
+  Package,
+} from "lucide-react"
+import { Card, Badge } from "@/components/common/UI"
+import { Button } from "../ui/button"
 
 /* --- MOCK DATA --- */
-const mockOrders= [
-  { id: '#ORD-2025-001', service: 'Bảo dưỡng định kỳ cấp 1', date: '24/12/2025', status: 'Completed', total: 1500000 },
-  { id: '#ORD-2025-002', service: 'Thay nhớt & Lọc gió', date: '20/12/2025', status: 'Completed', total: 850000 },
-  { id: '#ORD-2025-003', service: 'Sơn phủ gầm', date: '15/12/2025', status: 'In Progress', total: 3200000 },
-];
+const mockOrders = [
+  { id: "#ORD-2025-001", service: "Bảo dưỡng định kỳ cấp 1", date: "24/12/2025", status: "Completed", total: 1500000 },
+  { id: "#ORD-2025-002", service: "Thay nhớt & Lọc gió", date: "20/12/2025", status: "Completed", total: 850000 },
+  { id: "#ORD-2025-003", service: "Sơn phủ gầm", date: "15/12/2025", status: "In Progress", total: 3200000 },
+   { id: "#ORD-2025-001", service: "Bảo dưỡng định kỳ cấp 1", date: "24/12/2025", status: "Completed", total: 1500000 },
+  { id: "#ORD-2025-002", service: "Thay nhớt & Lọc gió", date: "20/12/2025", status: "Completed", total: 850000 },
+  { id: "#ORD-2025-003", service: "Sơn phủ gầm", date: "15/12/2025", status: "In Progress", total: 3200000 },
+]
 
 const mockTasks = [
-  { id: 'T-101', title: 'Kiểm tra hệ thống phanh - Mazda CX5', customer: 'Nguyễn Văn A', status: 'In Progress', priority: 'High', dueTime: '14:00 Today' },
-  { id: 'T-102', title: 'Thay lốp - Ford Ranger', customer: 'Trần Thị B', status: 'Todo', priority: 'Medium', dueTime: '16:30 Today' },
-  { id: 'T-103', title: 'Rửa xe chi tiết', customer: 'Lê Văn C', status: 'Done', priority: 'Low', dueTime: '10:00 Today' },
-];
+  {
+    id: "T-101",
+    title: "Kiểm tra hệ thống phanh - Mazda CX5",
+    customer: "Nguyễn Văn A",
+    status: "In Progress",
+    priority: "High",
+    dueTime: "14:00 Today",
+  },
+  {
+    id: "T-102",
+    title: "Thay lốp - Ford Ranger",
+    customer: "Trần Thị B",
+    status: "Todo",
+    priority: "Medium",
+    dueTime: "16:30 Today",
+  },
+  {
+    id: "T-103",
+    title: "Rửa xe chi tiết",
+    customer: "Lê Văn C",
+    status: "Done",
+    priority: "Low",
+    dueTime: "10:00 Today",
+  },
+]
 
 const chartData = [
-  { name: 'T1', rev: 4000 },
-  { name: 'T2', rev: 3000 },
-  { name: 'T3', rev: 2000 },
-  { name: 'T4', rev: 2780 },
-  { name: 'T5', rev: 1890 },
-  { name: 'T6', rev: 2390 },
-  { name: 'T7', rev: 3490 },
-];
+  { name: "T1", rev: 4000 },
+  { name: "T2", rev: 3000 },
+  { name: "T3", rev: 2000 },
+  { name: "T4", rev: 2780 },
+  { name: "T5", rev: 1890 },
+  { name: "T6", rev: 2390 },
+  { name: "T7", rev: 3490 },
+]
 
 /* --- USER VIEW --- */
 export const UserDashboard = ({ user }) => {
