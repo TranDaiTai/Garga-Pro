@@ -11,10 +11,12 @@ export default defineConfig({
   server:{
     proxy: {
       '/api':{
-        target: 'http://localhost:5000',
-        changeOrigin: true,
+        target: 'http://myapp.local:5000',
+        changeOrigin: false,
       }
-    }
+    },
+    port:5173,
+    // allowedHosts: ['myapp.local'],
   },
   resolve:{
     alias:{

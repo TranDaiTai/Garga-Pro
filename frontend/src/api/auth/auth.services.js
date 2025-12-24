@@ -1,6 +1,4 @@
-import { LogOut } from "lucide-react";
 import api from "../api";
-import { useAuth } from "@/context/AuthContext";
 
 const PREFIX = "/api/auth";
 

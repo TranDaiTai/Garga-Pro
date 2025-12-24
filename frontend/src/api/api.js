@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { AuthContext } from '@/context/AuthContext';
 const api = axios.create({
-  baseURL: import.meta.env.DEV ? '/' : 'https://your-production.com', // dev thì dùng proxy
+  // baseURL:  '/' , // dev thì dùng proxy
+  baseURL: 'http://myapp.local:5000',  // ← Hardcode tạm trực tiếp đến backend
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials : true, // cho phép gửi cookie cùng request
 });
 
 

@@ -1,30 +1,42 @@
-"use client"
+"use client";
+import { ChevronDown, Search } from "lucide-react";
+import { useState } from "react";
 
-import { ChevronDown } from "lucide-react"
-import { useState } from "react"
-
-
-
-export function SortBar({ 
-  searchTerm, 
-  onSearchChange, 
-  sortBy, 
-  onSortChange ,
+export function SortBar({
+  searchInput,
+  onSearchInputChange,
+  onSearchSubmit,
+  sortBy,
+  onSortChange,
   SORT_OPTIONS,
-  PRICE_SORT_OPTIONS}) {
-  const [visiblePriceSort, setVisiblePriceSort] = useState(false)
+  PRICE_SORT_OPTIONS,
+}) {
+  const [visiblePriceSort, setVisiblePriceSort] = useState(false);
 
   return (
     <div className="flex items-center gap-2 mb-6 pb-4 border-b border-border flex-wrap">
-      <input
-        type="text"
-        placeholder="Tìm kiếm sản phẩm..."
-        value={searchTerm}
-        onChange={(e) => onSearchChange(e.target.value)}
-        className="flex-1 min-w-[200px] pl-4 pr-4 py-2 bg-background border border-border rounded-lg text-sm text-foreground placeholder-muted-foreground transition-colors hover:border-accent focus:border-accent focus:outline-none"
-      />
+      {/* Form tìm kiếm */}
+      <form onSubmit={onSearchSubmit} className="flex-1 min-w-[200px]">
+        <div className="relative flex items-center pl-4 pr-4 py-2 bg-background border border-border rounded-lg">
+          <input
+            type="text"
+            placeholder="Tìm kiếm sản phẩm..."
+            value={searchInput}
+            onChange={(e) => onSearchInputChange(e.target.value)}
+            className="flex-1 text-sm text-foreground placeholder-muted-foreground bg-transparent focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="ml-2 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Search size={20} />
+          </button>
+        </div>
+      </form>
 
-      <span className="text-sm text-muted-foreground whitespace-nowrap">Sắp xếp theo</span>
+      <span className="text-sm text-muted-foreground whitespace-nowrap">
+        Sắp xếp theo
+      </span>
 
       {SORT_OPTIONS.map((option) => (
         <button
@@ -55,8 +67,8 @@ export function SortBar({
               <button
                 key={option.value}
                 onClick={() => {
-                  onSortChange(option.value)
-                  setVisiblePriceSort(false)
+                  onSortChange(option.value);
+                  setVisiblePriceSort(false);
                 }}
                 className={`w-full text-left px-4 py-2 text-sm hover:bg-secondary transition-colors ${
                   sortBy === option.value ? "bg-accent/20 text-accent" : "text-foreground"
@@ -69,5 +81,5 @@ export function SortBar({
         )}
       </div>
     </div>
-  )
+  );
 }

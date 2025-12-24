@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const  ProductImage = ({ product }) => {
-  const productImages =  product?.image || []
+  const productImages =  product?.images || []
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   return (
     <div className="space-y-4">

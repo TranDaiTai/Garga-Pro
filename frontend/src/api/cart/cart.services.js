@@ -1,5 +1,5 @@
 import api from "../api";
-const PREFIX = "/api/cart";
+const PREFIX = "/api/carts";
 export const CartApi = {
   addToCard: async (productId, quantity) => {
     const res = await api.post(`${PREFIX}/add`, {

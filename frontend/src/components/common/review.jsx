@@ -1,51 +1,42 @@
 import { Star } from "lucide-react";
 import ReviewCard from "@/components/common/ReviewCard";
 import { useState, useEffect, useMemo } from "react";
+import { reviewApi } from "@/api/review/review.services";
+import Pagination from "./Pagination";
 
-export default function ReviewComponent({ product, reviews }) {
-  const [likedReviews, setLikedReviews] = useState([]);
+export default function ReviewComponent({ product }) {
   const [selectedFilter, setSelectedFilter] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [stats, setStats] = useState();
+  const [pagination, setPagination] = useState();
+  useEffect(() => {
+    const fectReviewsProduct = async () => {
+      const res = await reviewApi.getReviewsProduct(product.id);
+      setReviews(res.data.reviews);
+      setPagination(res.data.pagination);
+    };
+    fectReviewsProduct();
+  }, [selectedFilter, product]);
 
-  // Đếm số lượng review theo từng rating
-  const mapCountReviews = useMemo(() => {
-    if (!reviews || !Array.isArray(reviews)) {
-      return { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-    }
-    
-    return reviews.reduce((map, review) => {
-      const rating = Math.round(review.rating); // Làm tròn rating
-      if (rating >= 1 && rating <= 5) {
-        map[rating] = (map[rating] || 0) + 1;
-      }
-      return map;
-    }, { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 });
-  }, [reviews]);
+  useEffect(() => {
+    const fectReviewsStats = async () => {
+      const res = await reviewApi.getReviewsProduct(product.id);
+      setStats(res.data.stats);
+    };
+    fectReviewsStats();
+  }, [product]);
 
-  // Đếm review có media và comments
-  const reviewStats = useMemo(() => {
-    if (!reviews || !Array.isArray(reviews)) return { mediaCount: 0, commentCount: 0 };
-    
-    return reviews.reduce(
-      (stats, review) => ({
-        mediaCount: stats.mediaCount + (review.images?.length > 0 ? 1 : 0),
-        commentCount: stats.commentCount + (review.comments?.length > 0 ? 1 : 0),
-      }),
-      { mediaCount: 0, commentCount: 0 }
-    );
-  }, [reviews]);
-
-  const handleLikeReview = (reviewId) => {
-    setLikedReviews((prev) =>
-      prev.includes(reviewId)
-        ? prev.filter((id) => id !== reviewId)
-        : [...prev, reviewId]
-    );
+  const handleFilterChange = (change) => {
+    setSelectedFilter((prev) => {
+      return { ...prev, ...change };
+    });
   };
 
+  const handleLikeReview = (reviewId) => {};
   // Filter reviews theo rating đã chọn
   const filteredReviews = useMemo(() => {
     if (!selectedFilter || !reviews) return reviews;
-    
+
     return reviews.filter((review) => {
       if (selectedFilter === "media") {
         return review.media?.length > 0;
@@ -57,13 +48,18 @@ export default function ReviewComponent({ product, reviews }) {
     });
   }, [reviews, selectedFilter]);
 
+  const getRatingCount = (star) => stats?.ratingCounts?.[star] ?? 0;
+
   const filterButtons = [
-    { label: `5 Sao (${mapCountReviews[5]})`, value: 5 },
-    { label: `4 Sao (${mapCountReviews[4]})`, value: 4 },
-    { label: `3 Sao (${mapCountReviews[3]})`, value: 3 },
-    { label: `2 Sao (${mapCountReviews[2]})`, value: 2 },
-    { label: `1 Sao (${mapCountReviews[1]})`, value: 1 },
-    { label: `Có Hình Ảnh / Video (${reviewStats.mediaCount})`, value: "media" },
+    { label: `5 Sao (${getRatingCount(5)})`, value: 5 },
+    { label: `4 Sao (${getRatingCount(4)})`, value: 4 },
+    { label: `3 Sao (${getRatingCount(3)})`, value: 3 },
+    { label: `2 Sao (${getRatingCount(2)})`, value: 2 },
+    { label: `1 Sao (${getRatingCount(1)})`, value: 1 },
+    {
+      label: `Có Hình Ảnh / Video (${stats?.mediaCount ?? 0})`,
+      value: "media",
+    },
   ];
 
   return (
@@ -97,9 +93,9 @@ export default function ReviewComponent({ product, reviews }) {
             {filterButtons.map((filter) => (
               <button
                 key={filter.value}
-                onClick={() => setSelectedFilter(
-                  selectedFilter === filter.value ? null : filter.value
-                )}
+                onClick={() =>
+                  handleFilterChange({ rating: filter.value })
+                }
                 className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
                   selectedFilter === filter.value
                     ? "border-accent text-accent bg-accent/5"
@@ -115,21 +111,26 @@ export default function ReviewComponent({ product, reviews }) {
 
       {/* Reviews List */}
       <div className="space-y-4">
-        {filteredReviews?.map((review) => (
+        {reviews?.map((review) => (
           <ReviewCard
             key={review.id}
             review={review}
-            liked={likedReviews.includes(review.id)}
             onLike={() => handleLikeReview(review.id)}
           />
         ))}
-        
-        {(!filteredReviews || filteredReviews.length === 0) && (
+
+        {(!reviews || reviews.length === 0) && (
           <div className="text-center py-8 text-muted-foreground">
             Không có đánh giá nào phù hợp với bộ lọc
           </div>
         )}
       </div>
+      <Pagination
+      currentPage={pagination?.currentPage || 1}
+      totalPages={pagination?.totalPages || 1}
+      onPageChange={(page) => handleFilterChange({ page })}
+    />
     </div>
+    
   );
 }

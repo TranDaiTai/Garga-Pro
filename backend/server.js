@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');   // thêm dòng này
 const productRoutes = require('./routes/product')
-const reviewRouters = require('./routes/review')
 const cartRouters = require('./routes/cart')
 
 
@@ -14,7 +13,11 @@ const app = express();
 const PORT = 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors(
+  {origin: 'http://localhost:5173', // frontend URL
+  credentials: true, // cho phép gửi cookie
+}
+));
 app.use(cookieParser()); // phải dùng trước router
 
 app.use(express.json());
@@ -24,8 +27,7 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);  
 app.use('/api/products',productRoutes) // thêm dòng này
-app.use('/api/reviews', reviewRouters)
-app.use('/api/cart',cartRouters)
+app.use('/api/carts',cartRouters)
 // Route test
 app.get("/", (req, res) => {
   res.send("API is running...");

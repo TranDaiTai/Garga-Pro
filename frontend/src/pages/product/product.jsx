@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ShopContainer from "@/components/shopContainer/ShopContainer";
 import { productApi } from "@/api/product/product.services";
+import { useSearchParams } from "react-router-dom";
 
 const CATEGORIES = []; // fill data thực tế, ví dụ: ['phone', 'laptop']
 const PRICE_RANGES = [
@@ -29,70 +30,103 @@ const PRICE_SORT_OPTIONS = [
 ];
 
 export default function ProductsPage() {
-  const [filters, setFilters] = useState({
-    search: "",
-    categories: [], // array string
-    priceRanges: [], // array {min, max}
-    ratings: [], // array number
-    hasDiscount: false,
-    sort: "relevant",
-    page: 1,
-  });
+  const [searchParams,setSearchParams] = useSearchParams()
+// Khởi tạo filters từ URL (query params) khi mount
+  const initialFilters = {
+    search: searchParams.get("search") || "",
+    categories: searchParams.getAll("category"), // getAll vì có thể nhiều category
+    priceRanges: [], // sẽ xử lý riêng
+    ratings: searchParams.getAll("rating").map(Number), // array number
+    hasDiscount: searchParams.get("hasDiscount") === "true",
+    sort: searchParams.get("sort") || "relevant",
+    page: Number(searchParams.get("page")) || 1,
+  };
 
+  // Xử lý priceRanges từ minPrice & maxPrice (nếu backend gửi)
+  const minPrice = searchParams.get("minPrice");
+  const maxPrice = searchParams.get("maxPrice");
+  if (minPrice) {
+    // Tìm range khớp với min-max
+    const selectedRange = PRICE_RANGES.find(
+      (r) => r.min === Number(minPrice) && (r.max === Infinity || r.max === Number(maxPrice))
+    );
+    if (selectedRange) {
+      initialFilters.priceRanges = [selectedRange];
+    } else {
+      // Nếu nhiều range hoặc không khớp, bạn có thể xử lý khác
+      initialFilters.priceRanges = [];
+    }
+  }
   const [productsData, setProductsData] = useState({
     data: [],
     pagination: { totalPages: 1, totalItems: 0, currentPage: 1 },
     loading: false,
     error: null,
   });
+  const [filters, setFilters] = useState(initialFilters);
+// Đồng bộ filters → URL mỗi khi filters thay đổi
+  useEffect(() => {
+    const params = new URLSearchParams();
 
+    params.set("page", filters.page);
+    params.set("limit", ITEMS_PER_PAGE);
+
+    if (filters.search) params.set("search", filters.search);
+    filters.categories.forEach((cat) => params.append("category", cat));
+
+    // Price ranges: chỉ hỗ trợ 1 range cho đơn giản (có thể mở rộng)
+    if (filters.priceRanges.length > 0) {
+      const range = filters.priceRanges[0];
+      params.set("minPrice", range.min);
+      if (range.max !== Infinity) {
+        params.set("maxPrice", range.max);
+      }
+      // Nếu max = Infinity → không set maxPrice
+    }
+
+    if (filters.ratings.length > 0) {
+      const minRating = Math.min(...filters.ratings);
+      params.set("rating", minRating);
+    }
+
+    if (filters.hasDiscount) params.set("hasDiscount", "true");
+
+    params.set("sort", filters.sort);
+
+    // Cập nhật URL mà KHÔNG gây re-fetch (vì fetch dựa vào filters)
+    setSearchParams(params, { replace: true }); // replace: true để không thêm history entry mới
+  }, [filters]);
+
+  // Fetch products khi filters thay đổi
   useEffect(() => {
     const fetchProducts = async () => {
       setProductsData((prev) => ({ ...prev, loading: true, error: null }));
 
       try {
         const params = new URLSearchParams();
-        params.append("page", filters.page);
-        params.append("limit", ITEMS_PER_PAGE); // ITEMS_PER_PAGE của bạn
+        params.set("page", filters.page);
+        params.set("limit", ITEMS_PER_PAGE);
 
-        if (filters.search) params.append("search", filters.search);
-
+        if (filters.search) params.set("search", filters.search);
         filters.categories.forEach((cat) => params.append("category", cat));
 
-        // Price ranges: giả sử chỉ hỗ trợ 1 range, nếu nhiều thì tổng hợp min/max
-        // Trong useEffect fetchProducts
         if (filters.priceRanges.length > 0) {
-          const selectedRanges = filters.priceRanges;
-
-          // Tìm min nhỏ nhất
-          const min = Math.min(...selectedRanges.map((r) => r.min));
-
-          // Tìm max lớn nhất, nhưng nếu có range nào max = Infinity → KHÔNG gửi maxPrice
-          const hasUnlimitedMax = selectedRanges.some(
-            (r) => r.max === Infinity || r.max === null || r.max === undefined
-          );
-
-          params.append("minPrice", min);
-
-          if (!hasUnlimitedMax) {
-            const max = Math.max(...selectedRanges.map((r) => r.max));
-            params.append("maxPrice", max);
+          const range = filters.priceRanges[0];
+          params.set("minPrice", range.min);
+          if (range.max !== Infinity) {
+            params.set("maxPrice", range.max);
           }
-          // Nếu hasUnlimitedMax → chỉ gửi minPrice, backend hiểu là >= min
         }
 
-        // Rating: lấy min rating từ selected
         if (filters.ratings.length > 0) {
-          const minRating = Math.min(...filters.ratings);
-          params.append("rating", minRating);
+          params.set("rating", Math.min(...filters.ratings));
         }
 
-        if (filters.hasDiscount) params.append("hasDiscount", "true");
+        if (filters.hasDiscount) params.set("hasDiscount", "true");
 
-        params.append("sort", filters.sort);
+        params.set("sort", filters.sort);
 
         const res = await productApi.getProducts(params.toString());
-        // const res = await productApi.getProductAll();
 
         setProductsData({
           data: res.data.product,
@@ -110,10 +144,19 @@ export default function ProductsPage() {
     };
 
     fetchProducts();
-  }, [filters]);
+  }, [filters]); // Chỉ phụ thuộc filters
 
   const handleFilterChange = (changes) => {
-    setFilters((prev) => ({ ...prev, ...changes }));
+    setFilters((prev) => {
+      const newFilters = { ...prev, ...changes };
+
+      // Reset page về 1 khi thay đổi filter (trừ khi chỉ thay đổi page)
+      if (changes.categories || changes.priceRanges || changes.ratings || changes.hasDiscount || changes.search) {
+        newFilters.page = 1;
+      }
+
+      return newFilters;
+    });
   };
 
   return (

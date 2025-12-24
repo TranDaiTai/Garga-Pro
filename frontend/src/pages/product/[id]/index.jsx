@@ -1,41 +1,45 @@
 // src/pages/product/ProductDetailPage.jsx
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import {
-  Star,
-  ChevronLeft,
-} from "lucide-react";
-import Pagination from "@/components/common/Pagination";
+import { Star, ChevronLeft } from "lucide-react";
 import ProductCard from "@/components/common/ProductCard";
 import { productApi } from "@/api/product/product.services";
-import { reviewApi } from "@/api/review/review.services";
 import ProductImage from "@/components/common/ProductImage";
 import ProductInfo from "@/components/common/ProductInfo";
 import ReviewComponent from "@/components/common/review";
 // Sample products data - same as products page
-const SAMPLE_PRODUCTS = [
- 
-];
 
 export default function ProductDetailPage() {
   const { id } = useParams(); // ← Đây mới là cách đúng!
   const navigate = useNavigate();
-  const [product, setProduct] = useState();
-  const [review,setReview] = useState(); 
-
+  const [product, setProduct] = useState(null);
+  const [relatedProduct, setRelatedProduct] = useState();
+  const [pagination,setPagination] = useState();
   useEffect(() => {
     const fectProductById = async () => {
       const res = await productApi.getProductById(id);
       setProduct(res.data.product);
-      // console.log(res.data);
-    };
-    const fectReviewsProduct = async () => {
-      const res = await reviewApi.getReviewsProduct(id);
-      setReview(res.data);
+      setPagination(res.data.pagination) ; 
     };
     fectProductById();
-    fectReviewsProduct();
   }, [id]);
+
+  useEffect(() => {
+   
+    const fectRelatedProduct = async () => {
+      const params = new URLSearchParams();
+      params.set("categories", product.categoryId);
+      const res = await productApi.getProducts(params);
+      setRelatedProduct(res.data.product);
+    };
+    const fectAll = () =>{
+      if ( product ){
+        fectRelatedProduct();
+      }
+    }
+    fectAll() ;
+    
+  }, [product]);
   // Tìm sản phẩm theo id (chuyển string → number)
 
   // Nếu không tìm thấy sản phẩm
@@ -122,12 +126,9 @@ export default function ProductDetailPage() {
 
             <ReviewComponent
               product={product}
-              reviews={review}
             />
-
-            {/* Pagination */}
-            <Pagination currentPage={1} totalPages={2} onPageChange={null} />
           </div>
+
           <div></div>
         </div>
 
@@ -137,9 +138,7 @@ export default function ProductDetailPage() {
             Sản phẩm liên quan
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {SAMPLE_PRODUCTS.filter(
-              (p) => p.category === product.category && p.id !== product.id
-            )
+            {relatedProduct && relatedProduct
               .slice(0, 4)
               .map((relatedProduct) => (
                 <ProductCard key={relatedProduct.id} product={relatedProduct} />

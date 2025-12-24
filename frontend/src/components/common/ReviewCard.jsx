@@ -1,6 +1,6 @@
 import { Star } from "lucide-react"
 
-export default function ReviewCard({ review, liked, onLike }) {
+export default function ReviewCard({ review, onLike }) {
   return (
     <div className="border border-border rounded-lg p-6 hover:shadow-md transition-shadow">
       
@@ -9,13 +9,13 @@ export default function ReviewCard({ review, liked, onLike }) {
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
             <span className="text-sm font-bold text-accent">
-              {review.author.charAt(0)}
+              {review.authorDisplay.charAt(0)}
             </span>
           </div>
           <div>
-            <p className="font-semibold text-foreground">{review.author}</p>
+            <p className="font-semibold text-foreground">{review.authorDisplay}</p>
             <p className="text-xs text-muted-foreground">
-              {review.location} | {review.date}
+              {review.location} | {review.reviewDate}
             </p>
           </div>
         </div>
@@ -60,7 +60,7 @@ export default function ReviewCard({ review, liked, onLike }) {
         <button
           onClick={() => onLike(review.id)}
           className={`flex items-center gap-2 text-sm font-medium transition-colors ${
-            liked
+            review.likes
               ? "text-accent"
               : "text-muted-foreground hover:text-foreground"
           }`}
